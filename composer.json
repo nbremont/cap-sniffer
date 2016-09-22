@@ -1,0 +1,12 @@
+{
+    "require": {
+        "php": ">=5.6",
+        "paquettg/php-html-parser" : "dev-master",
+        "jms/serializer": "dev-master"
+    },
+    "autoload" : {
+        "psr-0": {
+            "Cp": "src/"
+        }
+    }
+}
