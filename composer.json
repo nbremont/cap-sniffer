@@ -2,7 +2,8 @@
     "require": {
         "php": ">=5.6",
         "paquettg/php-html-parser" : "dev-master",
-        "jms/serializer": "dev-master"
+        "jms/serializer": "dev-master",
+        "symfony/console": "^3.1"
     },
     "autoload" : {
         "psr-0": {

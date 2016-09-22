@@ -9,7 +9,6 @@ class Training
     /**
      * @var string
      *
-     * @JMS\Expose
      * @JMS\Type("string")
      */
     private $content;
@@ -17,7 +16,6 @@ class Training
     /**
      * @var string
      *
-     * @JMS\Expose
      * @JMS\Type("string")
      */
     private $type;

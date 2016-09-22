@@ -4,12 +4,11 @@ namespace Cp\DomainObject;
 
 use JMS\Serializer\Annotation as JMS;
 
-class WeekTraining
+class Week
 {
     /**
      * @var string
      *
-     * @JMS\Expose
      * @JMS\Type("string")
      */
     private $name;
@@ -17,7 +16,6 @@ class WeekTraining
     /**
      * @var array
      *
-     * @JMS\Expose
      * @JMS\Type("array<Cp\DomainObject\Training>")
      */
     private $trainings;

@@ -38,23 +38,28 @@ class CpParser
         $dom = new Dom();
         $dom->load($htmlContent);
 
+        $nameOfPlan = strip_tags($dom->find('.article-content-main h1')->innerHtml);
+        $typeOfPlan = strip_tags($dom->find('.article-content-main h3')->innerHtml);
         $weeks = $dom->find('#plans table');
 
-        $stdPlanObj = new \stdClass();
-        $stdPlanObj->name = "Plan";
+        $plan = [
+            'name' => $nameOfPlan,
+            'type' => $typeOfPlan,
+            'weeks' => [],
+        ];
 
         foreach ($weeks as $training) {
-            $stdWeekObj = new \stdClass();
-            $stdWeekObj->name = $training->find('thead tr')->find('td')[1]->innerHtml;
+            $week = ['name' => $training->find('thead tr')->find('td')[1]->innerHtml];
             foreach ($training->find('tbody tr') as $seance) {
-                $stdTrainingObj = new \stdClass();
-                $stdTrainingObj->type = $seance->find('td')[0]->innerHtml;
-                $stdTrainingObj->content = $seance->find('td')[1]->innerHtml;
-                $stdWeekObj->trainings[] = $stdTrainingObj;
+                $training = [
+                    'type' => $seance->find('td')[0]->innerHtml,
+                    'content' => $seance->find('td')[1]->innerHtml,
+                ];
+                $week['trainings'][] = $training;
             }
-            $stdPlanObj->weekTrainings[] = $stdWeekObj;
+            $plan['weeks'][] = $week;
         }
 
-        return json_encode($stdPlanObj, true);
+        return json_encode($plan, true);
     }
 }

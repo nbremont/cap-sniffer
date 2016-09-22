@@ -4,23 +4,28 @@ namespace Cp\DomainObject;
 
 use JMS\Serializer\Annotation as JMS;
 
-class PlanTraining
+class Plan
 {
     /**
      * @var string
      *
-     * @JMS\Expose
      * @JMS\Type("string")
      */
     private $name;
 
     /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     */
+    private $type;
+
+    /**
      * @var array
      *
-     * @JMS\Expose
-     * @JMS\Type("array<Cp\DomainObject\WeekTraining>")
+     * @JMS\Type("array<Cp\DomainObject\Week>")
      */
-    private $weekTrainings;
+    private $weeks;
 
 
     /**
@@ -28,7 +33,7 @@ class PlanTraining
      */
     public function __construct()
     {
-        $this->weekTrainings = [];
+        $this->weeks = [];
     }
 
     /**
@@ -48,18 +53,34 @@ class PlanTraining
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getWeekTrainings()
+    public function getType()
     {
-        return $this->weekTrainings;
+        return $this->type;
     }
 
     /**
-     * @param WeekTraining $weekTraining
+     * @param string $type
      */
-    public function addWeekTrainings(WeekTraining $weekTraining)
+    public function setType($type)
     {
-        $this->weekTrainings[] = $weekTraining;
+        $this->type = $type;
+    }
+
+    /**
+     * @return array
+     */
+    public function getWeeks()
+    {
+        return $this->weeks;
+    }
+
+    /**
+     * @param Week $week
+     */
+    public function addWeek(Week $week)
+    {
+        $this->weeks[] = $week;
     }
 }
