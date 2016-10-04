@@ -59,4 +59,17 @@ class Week
     {
         $this->trainings[] = $training;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        $stream = $this->getName()."\n";
+        foreach ($this->getTrainings() as $training) {
+            $stream .= (string) $training;
+        }
+
+        return $stream;
+    }
 }

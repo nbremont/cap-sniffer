@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4126047c3b5acfe2951be284d56c027a",
-    "content-hash": "3469cc8ece858b5a14c2f9cede8831b2",
+    "hash": "cbd9bc0a99ff46d7075be845c71020fb",
+    "content-hash": "15fe0286f6b6f855c53ebaeb79ad243e",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -343,6 +343,51 @@
                 "xml"
             ],
             "time": "2016-08-29 17:07:24"
+        },
+        {
+            "name": "jsvrcek/ics",
+            "version": "0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jasvrcek/ICS.git",
+                "reference": "941527f7f21f496378245d5bee6b5072c75334a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jasvrcek/ICS/zipball/941527f7f21f496378245d5bee6b5072c75334a8",
+                "reference": "941527f7f21f496378245d5bee6b5072c75334a8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Jsvrcek\\ICS\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Justin Svrcek",
+                    "homepage": "https://github.com/jasvrcek"
+                }
+            ],
+            "description": "abstraction layer for creating multi-byte safe RFC 5545 compliant .ics files",
+            "homepage": "https://github.com/jasvrcek/ICS",
+            "keywords": [
+                ".ics",
+                "RFC 5545",
+                "calendar",
+                "export",
+                "ical",
+                "multi-byte safe"
+            ],
+            "time": "2016-08-12 18:24:18"
         },
         {
             "name": "paquettg/php-html-parser",

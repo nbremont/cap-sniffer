@@ -83,4 +83,17 @@ class Plan
     {
         $this->weeks[] = $week;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        $stream = $this->getType().':'.$this->getName()."\n";
+        foreach ($this->getWeeks() as $week) {
+            $stream .= (string) $week;
+        }
+
+        return $stream;
+    }
 }

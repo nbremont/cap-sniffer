@@ -51,4 +51,12 @@ class Training
     {
         $this->type = $type;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getType().':'.$this->getContent()."\n";
+    }
 }
