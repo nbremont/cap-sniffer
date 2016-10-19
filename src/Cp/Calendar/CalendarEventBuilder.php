@@ -10,16 +10,15 @@ class CalendarEventBuilder
     /**
      * @param Week $week
      *
-     * @return array<CalendarEvent>
+     * @return array <CalendarEvent>
      */
     public function build(Week $week)
     {
         $events = [];
         foreach ($week->getTrainings() as $key => $training) {
             $event = new CalendarEvent();
-            $event->setStart(new \DateTime('now +'.$key.' days'));
-            $event->setEnd(new \DateTime('now +'.$key.' days +2 hours'));
-            $event->setUid($training->getContent());
+            $event->setUid(md5(uniqid()));
+            $event->setSummary($training->getContent());
             $events[] = $event;
         }
 

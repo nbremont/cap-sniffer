@@ -42,10 +42,12 @@ class SnifferTrainingCommand extends Command
         $serializer = SerializerBuilder::create()->build();
         $plan = $serializer->deserialize($jsonString, 'Cp\DomainObject\Plan', 'json');
 
-        $output->writeln((string) $plan);
-        exit(0);
         $calendarBuilder = new CalendarBuilder(new CalendarExport(new CalendarStream, new Formatter()), new CalendarEventBuilder());
 
-        file_put_contents(__DIR__.'/../../../planning.ics', $calendarBuilder->exportCalendar($plan));
+        $calendarStream = $calendarBuilder->exportCalendar($plan);
+        file_put_contents(__DIR__.'/../../../planning.ics', $calendarStream);
+
+        //$output->writeln((string) $plan);
+        //$output->writeln($calendarStream);
     }
 }

@@ -4,7 +4,9 @@
         "paquettg/php-html-parser" : "dev-master",
         "jms/serializer": "dev-master",
         "symfony/console": "^3.1",
-        "jsvrcek/ics": "^0.3.0"
+        "jsvrcek/ics": "^0.3.0",
+        "symfony/yaml": "^3.1",
+        "symfony/config": "^3.1"
     },
     "autoload" : {
         "psr-0": {

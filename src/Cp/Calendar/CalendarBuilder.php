@@ -45,10 +45,13 @@ class CalendarBuilder
     {
         $calendar = new Calendar();
         $calendar->setProdId($plan->getName());
+        $calendar->setTimezone(new \DateTimeZone('Europe/Paris'));
+        $initialDate = new \DateTime('-2 day');
 
         foreach ($plan->getWeeks() as $week) {
             $events = $this->calendarEventBuilder->build($week);
             foreach ($events as $event) {
+                $event->setStart(clone $initialDate->modify('+2 day'));
                 $calendar->addEvent($event);
             }
         }
