@@ -5,7 +5,6 @@ namespace Cp\Calendar;
 use Cp\DomainObject\Plan;
 use Jsvrcek\ICS\CalendarExport;
 use Jsvrcek\ICS\Model\Calendar;
-use Jsvrcek\ICS\Model\CalendarEvent;
 
 class CalendarBuilder
 {
@@ -18,11 +17,6 @@ class CalendarBuilder
      * @var CalendarEventBuilder
      */
     private $calendarEventBuilder;
-
-    /**
-     * @var array
-     */
-    private $events;
 
     /**
      * CalendarBuilder constructor.
@@ -69,13 +63,5 @@ class CalendarBuilder
         $this->build($plan);
 
         return $this->calendarExport->getStream();
-    }
-
-    /**
-     * @param CalendarEvent $event
-     */
-    public function addEvent(CalendarEvent $event)
-    {
-        $this->events[] = $event;
     }
 }
