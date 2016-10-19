@@ -32,8 +32,6 @@ class CalendarBuilder
 
     /**
      * @param Plan $plan
-     *
-     * @return string
      */
     public function build(Plan $plan)
     {
