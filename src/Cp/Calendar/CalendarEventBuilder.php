@@ -10,7 +10,7 @@ class CalendarEventBuilder
     /**
      * @param Week $week
      *
-     * @return array <CalendarEvent>
+     * @return CalendarEvent[]
      */
     public function build(Week $week)
     {
