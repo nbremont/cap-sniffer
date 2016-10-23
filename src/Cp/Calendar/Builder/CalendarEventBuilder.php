@@ -1,6 +1,6 @@
 <?php
 
-namespace Cp\Calendar;
+namespace Cp\Calendar\Builder;
 
 use Cp\DomainObject\Week;
 use Jsvrcek\ICS\Model\CalendarEvent;
