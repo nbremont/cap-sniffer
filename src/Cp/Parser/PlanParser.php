@@ -4,7 +4,7 @@ namespace Cp\Parser;
 
 use PHPHtmlParser\Dom;
 
-class CpParser
+class PlanParser
 {
     /**
      * @var Dom
@@ -12,28 +12,23 @@ class CpParser
     private $parser;
 
     /**
-     * @var string
-     */
-    private $url;
-
-    /**
      * CpParser constructor.
      *
-     * @param Dom    $parser
-     * @param string $url
+     * @param Dom $parser
      */
-    public function __construct(Dom $parser, $url)
+    public function __construct(Dom $parser)
     {
         $this->parser = $parser;
-        $this->url = $url;
     }
 
     /**
+     * @param string $url
+     *
      * @return string
      */
-    public function parseToJson()
+    public function parseToJson($url)
     {
-        $htmlContent = file_get_contents($this->url);
+        $htmlContent = file_get_contents($url);
 
         $dom = new Dom();
         $dom->load($htmlContent);

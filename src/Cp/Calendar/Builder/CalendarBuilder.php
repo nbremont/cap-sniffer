@@ -1,6 +1,6 @@
 <?php
 
-namespace Cp\Calendar;
+namespace Cp\Calendar\Builder;
 
 use Cp\DomainObject\Plan;
 use Jsvrcek\ICS\CalendarExport;

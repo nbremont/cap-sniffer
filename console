@@ -4,11 +4,20 @@
 require_once './vendor/autoload.php';
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 AnnotationRegistry::registerLoader('class_exists');
 
+$container = new \Symfony\Component\DependencyInjection\ContainerBuilder();
+$loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/config'));
+$loader->load('services.yml');
+
+$command = new \Cp\Command\SnifferTrainingCommand();
+$command->setContainer($container);
+
 $application = new Application();
-$application->add(new \Cp\Command\SnifferTrainingCommand());
+$application->add($command);
 
 $application->run();
