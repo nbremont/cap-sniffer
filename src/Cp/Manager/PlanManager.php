@@ -45,8 +45,8 @@ class PlanManager
     }
 
     /**
-     * @param string $week
-     * @param        $seance
+     * @param int    $week
+     * @param int    $seance
      * @param string $type
      *
      * @return Plan
