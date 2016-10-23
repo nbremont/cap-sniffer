@@ -2,9 +2,7 @@
 
 namespace Cp\Command;
 
-use Cp\Calendar\CalendarBuilder;
-use Cp\Calendar\CalendarEventBuilder;
-use Cp\DomainObject\Plan;
+use Cp\DomainObject\Configuration;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,7 +25,9 @@ class SnifferTrainingCommand extends Command
     {
         $this->setName('cp:sniffer')
             ->setDescription('Get training plan by url')
-            ->addArgument('url', InputArgument::REQUIRED, 'Url of plan.')
+            ->addArgument('type', InputArgument::OPTIONAL, 'Type of plan', 'plan-entrainement-10km')
+            ->addArgument('week', InputArgument::OPTIONAL, 'Number of week', 6)
+            ->addArgument('seance', InputArgument::OPTIONAL, 'Number of seance', 3)
         ;
     }
 
@@ -36,17 +36,26 @@ class SnifferTrainingCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $url = $input->getArgument('url');
-        $jsonString = $this->container->get('cp.parser.plan')->parseToJson($url);
+        $typeName = $input->getArgument('type');
+        $week = $input->getArgument('week');
+        $seance = $input->getArgument('seance');
+        $type = $this->container->get('cp.provider.type')->getTypeByName($typeName);
 
-        $plan = $this
+        $configuration = new Configuration();
+        $configuration->setType($type);
+        $configuration->setNumberOfWeek($week);
+        $configuration->setNumberOfSeance($seance);
+
+        $plan = $this->container->get('cp.provider.plan')->getPlanByConfiguration($configuration);
+        $calendarStream = $this
             ->container
-            ->get('jms.serializer')
-            ->deserialize($jsonString, Plan::class, 'json')
-        ;
+            ->get('cp.calendar.builder.calendar')
+            ->exportCalendar($plan);
 
-        $calendarStream = $this->container->get('cp.calendar.builder.calendar')->exportCalendar($plan);
-        file_put_contents(__DIR__.'/../../../planning.ics', $calendarStream);
+        file_put_contents(
+            __DIR__.'/../../../'.$this->container->get('cocur.slugify')->slugify($plan->getName()).'.ics',
+            $calendarStream
+        );
 
         //$output->writeln((string) $plan);
         //$output->writeln($calendarStream);

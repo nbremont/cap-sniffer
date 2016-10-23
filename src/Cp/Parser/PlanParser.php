@@ -4,6 +4,9 @@ namespace Cp\Parser;
 
 use PHPHtmlParser\Dom;
 
+/**
+ * Class PlanParser
+ */
 class PlanParser
 {
     /**
@@ -29,17 +32,15 @@ class PlanParser
     public function parseToJson($url)
     {
         $htmlContent = file_get_contents($url);
+        $this->parser->load($htmlContent);
 
-        $dom = new Dom();
-        $dom->load($htmlContent);
-
-        $nameOfPlan = strip_tags($dom->find('.article-content-main h1')->innerHtml);
-        $typeOfPlan = strip_tags($dom->find('.article-content-main h3')->innerHtml);
-        $weeks = $dom->find('#plans table');
+        $nameOfPlan = strip_tags($this->parser->find('.article-content-main h1')->innerHtml);
+        $typeOfPlan = strip_tags($this->parser->find('.article-content-main h3')->innerHtml);
+        $weeks = $this->parser->find('#plans table');
 
         $plan = [
-            'name' => $nameOfPlan,
-            'type' => $typeOfPlan,
+            'name' => strip_tags($nameOfPlan),
+            'type' => strip_tags($typeOfPlan),
             'weeks' => [],
         ];
 
@@ -47,8 +48,8 @@ class PlanParser
             $week = ['name' => $training->find('thead tr')->find('td')[1]->innerHtml];
             foreach ($training->find('tbody tr') as $seance) {
                 $training = [
-                    'type' => $seance->find('td')[0]->innerHtml,
-                    'content' => $seance->find('td')[1]->innerHtml,
+                    'type' => strip_tags($seance->find('td')[0]->innerHtml),
+                    'content' => strip_tags($seance->find('td')[1]->innerHtml),
                 ];
                 $week['trainings'][] = $training;
             }

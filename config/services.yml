@@ -1,3 +1,9 @@
+parameters:
+  url.base: "http://www.conseils-courseapied.com/"
+  url.types: "http://www.conseils-courseapied.com/plan-entrainement.html"
+  memcache.host: "127.0.0.1"
+  memcache.port: 11211
+
 services:
 # External services
   ics.calendar_stream:
@@ -15,12 +21,46 @@ services:
   jms.serializer:
     class: JMS\Serializer\Serializer
     factory: ['@jms.serializer.builder', build]
+  cocur.slugify:
+    class: Cocur\Slugify\Slugify
+  memcached:
+    class: Memcached
+    calls:
+      - ["addServer", ["%memcache.host%", "%memcache.port%"]]
+  doctrine.cache:
+    class: Doctrine\Common\Cache\MemcachedCache
+    calls:
+      - ["setMemcached", ["@memcached"]]
+
 # Cp services
+  # Transformer
+  cp.transformer.url:
+    class: Cp\Transformer\UrlTransformer
+    arguments: ["%url.base%"]
+  # Managers
+  cp.manager.plan:
+    class: Cp\Manager\PlanManager
+    arguments: ["@cp.parser.plan", "@cp.transformer.url", "@jms.serializer"]
+  cp.manager.type:
+    class: Cp\Manager\TypeManager
+    arguments: ["@cp.parser.type", "%url.types%"]
+  # Provider
+  cp.provider.type:
+    class: Cp\Provider\TypeProvider
+    arguments: ["@cp.manager.type"]
+  cp.provider.plan:
+    class: Cp\Provider\PlanProvider
+    arguments: ["@cp.manager.plan"]
+  # Builders
   cp.calendar.buider.calendar_event:
     class: Cp\Calendar\Builder\CalendarEventBuilder
   cp.calendar.builder.calendar:
     class: Cp\Calendar\Builder\CalendarBuilder
     arguments: ["@ics.calendar_export", "@cp.calendar.buider.calendar_event"]
+  # Parser
   cp.parser.plan:
     class: Cp\Parser\PlanParser
+    arguments: ["@phphtml.parser.dom"]
+  cp.parser.type:
+    class: Cp\Parser\TypeParser
     arguments: ["@phphtml.parser.dom"]

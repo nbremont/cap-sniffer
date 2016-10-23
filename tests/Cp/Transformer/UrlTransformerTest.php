@@ -9,14 +9,14 @@ class UrlTransformerTest  extends \PHPUnit_Framework_TestCase
     public function testTransform()
     {
         $urlTransformer = new UrlTransformer('http://www.conseils-courseapied.com', [
-            '10km',
+            'plan-entrainement-10km',
             'semi-marathon',
             'marathon'
         ]);
 
-        $expected = 'http://www.conseils-courseapied.com/plan-entrainement'
-            .'/plan-entrainement-10km/3-seances-6-semaines.html';
+        $expected = 'http://www.conseils-courseapied.com/plan-entrainement/'
+            .'plan-entrainement-10km/3-seances-6-semaines.html';
 
-        $this->assertEquals($expected, $urlTransformer->transform(3, 6, '10km'));
+        $this->assertEquals($expected, $urlTransformer->transformPlan(6, 3, 'plan-entrainement-10km'));
     }
 }
