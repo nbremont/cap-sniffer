@@ -52,6 +52,6 @@ class TypeProvider
      */
     public function getTypeByName($name)
     {
-        return isset($this->getAll()[$name]) ? $this->getAll()[$name]['type '] : null;
+        return isset($this->getAll()[$name]) ? $this->getAll()[$name]['type'] : null;
     }
 }

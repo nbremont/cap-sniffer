@@ -10,6 +10,8 @@ use Doctrine\Common\Cache\MemcachedCache;
  */
 class TypeManager
 {
+    const KEY_TYPE_OF_TRAINING = 'type_of_training';
+
     /**
      * @var TypeParser
      */
@@ -44,7 +46,12 @@ class TypeManager
      */
     public function findAll()
     {
-        //$this->memcache->save('cache_id', 'my_data');
-        return $this->typeParser->parseToArray($this->urlSource);
+        $result = $this->memcache->fetch(self::KEY_TYPE_OF_TRAINING);
+        if (false == $result) {
+            $result = $this->typeParser->parseToArray($this->urlSource);
+            $this->memcache->save(self::KEY_TYPE_OF_TRAINING, $result, 3600);
+        }
+
+        return $result;
     }
 }
