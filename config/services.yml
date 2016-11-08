@@ -58,9 +58,11 @@ services:
     class: Cp\Calendar\Builder\CalendarBuilder
     arguments: ["@ics.calendar_export", "@cp.calendar.buider.calendar_event"]
   # Parser
+  cp.http.parser.header:
+    class: Cp\Http\HeaderParser
   cp.parser.plan:
     class: Cp\Parser\PlanParser
-    arguments: ["@phphtml.parser.dom"]
+    arguments: ["@phphtml.parser.dom", "@cp.http.parser.header"]
   cp.parser.type:
     class: Cp\Parser\TypeParser
     arguments: ["@phphtml.parser.dom"]

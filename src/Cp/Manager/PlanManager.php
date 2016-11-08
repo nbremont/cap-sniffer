@@ -3,6 +3,7 @@
 namespace Cp\Manager;
 
 use Cp\DomainObject\Plan;
+use Cp\Exception\ConfigurationException;
 use Cp\Parser\PlanParser;
 use Cp\Transformer\UrlTransformer;
 use JMS\Serializer\Serializer;
@@ -50,12 +51,19 @@ class PlanManager
      * @param string $type
      *
      * @return Plan
+     * @throws ConfigurationException
      */
     public function findByType($week, $seance, $type)
     {
-        $jsonString = $this->planParser->parseToJson(
-            $this->urlTransformer->transformPlan($week, $seance, $type)
-        );
+        try {
+            $jsonString = $this->planParser->parseToJson(
+                $this->urlTransformer->transformPlan($week, $seance, $type)
+            );
+        } catch (\Exception $e) {
+            throw new ConfigurationException(sprintf(
+                'Configuration with week: %s, seance: %s and type:%s is not available', $week, $seance, $type
+            ));
+        }
 
         return $this->serializer->deserialize($jsonString, Plan::class, 'json');
     }

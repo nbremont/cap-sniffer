@@ -2,6 +2,7 @@
 
 namespace Cp\Parser;
 
+use Cp\Http\HeaderParser;
 use PHPHtmlParser\Dom;
 
 /**
@@ -15,25 +16,36 @@ class PlanParser
     private $parser;
 
     /**
+     * @var HeaderParser
+     */
+    private $headerParser;
+
+    /**
      * CpParser constructor.
      *
-     * @param Dom $parser
+     * @param Dom          $parser
+     * @param HeaderParser $headerParser
      */
-    public function __construct(Dom $parser)
+    public function __construct(Dom $parser, HeaderParser $headerParser)
     {
         $this->parser = $parser;
+        $this->headerParser = $headerParser;
     }
 
     /**
      * @param string $url
      *
      * @return string
+     * @throws \Exception
      */
     public function parseToJson($url)
     {
         $htmlContent = file_get_contents($url);
-        $this->parser->load($htmlContent);
+        if (200 !== $responseCode = $this->headerParser->get('response_code', $http_response_header)) {
+            throw new \Exception(sprintf('Url %s return http response code %s', $url, $responseCode), $responseCode);
+        }
 
+        $this->parser->load($htmlContent);
         $nameOfPlan = strip_tags($this->parser->find('.article-content-main h1')->innerHtml);
         $typeOfPlan = strip_tags($this->parser->find('.article-content-main h3')->innerHtml);
         $weeks = $this->parser->find('#plans table');
