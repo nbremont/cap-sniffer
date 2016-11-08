@@ -1,5 +1,5 @@
 parameters:
-  url.base: "http://www.conseils-courseapied.com/"
+  url.base: "http://www.conseils-courseapied.com"
   url.types: "http://www.conseils-courseapied.com/plan-entrainement.html"
   memcache.host: "127.0.0.1"
   memcache.port: 11211

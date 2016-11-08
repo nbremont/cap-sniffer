@@ -39,7 +39,7 @@ class TypeProvider
     {
         $names = [];
         foreach ($this->getAll() as $type) {
-            $names[] = $type['name'];
+            $names[] = $type['type'];
         }
 
         return $names;

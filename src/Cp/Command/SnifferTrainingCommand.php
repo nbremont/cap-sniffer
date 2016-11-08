@@ -7,6 +7,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\DependencyInjection\Container;
 
 class SnifferTrainingCommand extends Command
@@ -25,7 +26,6 @@ class SnifferTrainingCommand extends Command
     {
         $this->setName('cp:sniffer')
             ->setDescription('Get training plan by url')
-            ->addArgument('type', InputArgument::OPTIONAL, 'Type of plan', 'plan-entrainement-10km')
             ->addArgument('week', InputArgument::OPTIONAL, 'Number of week', 6)
             ->addArgument('seance', InputArgument::OPTIONAL, 'Number of seance', 3)
         ;
@@ -36,9 +36,15 @@ class SnifferTrainingCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $typeName = $input->getArgument('type');
         $week = $input->getArgument('week');
         $seance = $input->getArgument('seance');
+
+        $typeOfPlan = $this->container->get('cp.provider.type')->getAllName();
+        $question = new ChoiceQuestion('Please select a plan', $typeOfPlan, 0);
+        $question->setErrorMessage('Plan %s is not valid.');
+
+        $helper = $this->getHelper('question');
+        $typeName = $helper->ask($input, $output, $question);
         $type = $this->container->get('cp.provider.type')->getTypeByName($typeName);
 
         $configuration = new Configuration();
@@ -57,7 +63,6 @@ class SnifferTrainingCommand extends Command
             $calendarStream
         );
 
-        //$output->writeln((string) $plan);
         //$output->writeln($calendarStream);
     }
 
