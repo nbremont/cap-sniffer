@@ -37,18 +37,39 @@ class CalendarBuilder
     {
         $calendar = new Calendar();
         $calendar->setProdId($plan->getName());
-        $calendar->setTimezone(new \DateTimeZone('Europe/Paris'));
-        $initialDate = new \DateTime('-2 day');
+        $initialDate = new \DateTime();
+        $initialDate->modify('- '.$this->getRecoveryDay($plan->getConfiguration()->getNumberOfSeance())[0].' day');
 
         foreach ($plan->getWeeks() as $week) {
             $events = $this->calendarEventBuilder->build($week);
-            foreach ($events as $event) {
-                $event->setStart(clone $initialDate->modify('+2 day'));
+            foreach ($events as $key => $event) {
+                $event->setStart(clone $initialDate->modify('+'.$this->getRecoveryDay(count($events))[$key].' day'));
                 $calendar->addEvent($event);
             }
         }
 
         $this->calendarExport->addCalendar($calendar);
+    }
+
+    /**
+     * @param int $numSeance
+     *
+     * @return array
+     */
+    public function getRecoveryDay($numSeance)
+    {
+        switch ($numSeance) {
+            case 3: return [3, 3, 3];
+                break;
+            case 4: return [2, 2, 2, 2];
+                break;
+            case 5: return [1, 2, 1, 2, 1];
+                break;
+            case 6: return [1, 1, 1, 1, 1, 1];
+                break;
+            case 7: return [1, 1, 1, 1, 1, 1, 1];
+                break;
+        }
     }
 
     /**

@@ -27,6 +27,11 @@ class Plan
      */
     private $weeks;
 
+    /**
+     * @var Configuration
+     */
+    private $configuration;
+
 
     /**
      * PlanTraining constructor.
@@ -82,6 +87,22 @@ class Plan
     public function addWeek(Week $week)
     {
         $this->weeks[] = $week;
+    }
+
+    /**
+     * @return Configuration
+     */
+    public function getConfiguration()
+    {
+        return $this->configuration;
+    }
+
+    /**
+     * @param Configuration $configuration
+     */
+    public function setConfiguration($configuration)
+    {
+        $this->configuration = $configuration;
     }
 
     /**

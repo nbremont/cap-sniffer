@@ -53,6 +53,8 @@ class SnifferTrainingCommand extends Command
         $configuration->setNumberOfSeance($seance);
 
         $plan = $this->container->get('cp.provider.plan')->getPlanByConfiguration($configuration);
+        $plan->setConfiguration($configuration);
+
         $calendarStream = $this
             ->container
             ->get('cp.calendar.builder.calendar')
@@ -62,8 +64,6 @@ class SnifferTrainingCommand extends Command
             __DIR__.'/../../../'.$this->container->get('cocur.slugify')->slugify($plan->getName()).'.ics',
             $calendarStream
         );
-
-        //$output->writeln($calendarStream);
     }
 
     /**
