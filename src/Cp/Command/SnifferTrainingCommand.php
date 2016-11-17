@@ -45,25 +45,8 @@ class SnifferTrainingCommand extends Command
 
         $helper = $this->getHelper('question');
         $typeName = $helper->ask($input, $output, $question);
-        $type = $this->container->get('cp.provider.type')->getTypeByName($typeName);
 
-        $configuration = new Configuration();
-        $configuration->setType($type);
-        $configuration->setNumberOfWeek($week);
-        $configuration->setNumberOfSeance($seance);
-
-        $plan = $this->container->get('cp.provider.plan')->getPlanByConfiguration($configuration);
-        $plan->setConfiguration($configuration);
-
-        $calendarStream = $this
-            ->container
-            ->get('cp.calendar.builder.calendar')
-            ->exportCalendar($plan);
-
-        file_put_contents(
-            __DIR__.'/../../../'.$this->container->get('cocur.slugify')->slugify($plan->getName()).'.ics',
-            $calendarStream
-        );
+        $this->container->get('cp.cap_sniffer')->generateCalendar($typeName, $week, $seance);
     }
 
     /**
