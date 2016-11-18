@@ -39,7 +39,7 @@ class SnifferTrainingCommand extends Command
         $week = $input->getArgument('week');
         $seance = $input->getArgument('seance');
 
-        $typeOfPlan = $this->container->get('cp.provider.type')->getAllName();
+        $typeOfPlan = $this->container->get('cp.provider.type')->getTypes();
         $question = new ChoiceQuestion('Please select a plan', $typeOfPlan, 0);
         $question->setErrorMessage('Plan %s is not valid.');
 

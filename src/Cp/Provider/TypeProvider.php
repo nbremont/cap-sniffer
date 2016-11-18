@@ -2,56 +2,34 @@
 
 namespace Cp\Provider;
 
-use Cp\Manager\TypeManager;
+use Cp\DomainObject\TypeInterface;
 
 /**
- * Class TypeProvider
+ * Class Type
  */
 class TypeProvider
 {
     /**
-     * @var TypeManager
-     */
-    private $typeManager;
-
-    /**
-     * TypeProvider constructor.
-     *
-     * @param TypeManager $typeManager
-     */
-    public function __construct(TypeManager $typeManager)
-    {
-        $this->typeManager = $typeManager;
-    }
-
-    /**
      * @return array
      */
-    public function getAll()
+    public function getTypes()
     {
-        return $this->typeManager->findAll();
+        return [
+            TypeInterface::TYPE_10k,
+            TypeInterface::TYPE_SEMI,
+            TypeInterface::TYPE_MARATHON,
+        ];
     }
 
     /**
-     * @return array
-     */
-    public function getAllName()
-    {
-        $names = [];
-        foreach ($this->getAll() as $type) {
-            $names[] = $type['type'];
-        }
-
-        return $names;
-    }
-
-    /**
-     * @param $name
+     * @param string $type
      *
      * @return string|null
      */
-    public function getTypeByName($name)
+    public function getType($type)
     {
-        return isset($this->getAll()[$name]) ? $this->getAll()[$name]['type'] : null;
+        $key = array_search($type, $this->getTypes());
+
+        return false !== $key ? $this->getTypes()[$key] : null;
     }
 }

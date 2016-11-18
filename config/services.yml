@@ -47,7 +47,6 @@ services:
   # Provider
   cp.provider.type:
     class: Cp\Provider\TypeProvider
-    arguments: ["@cp.manager.type"]
   cp.provider.plan:
     class: Cp\Provider\PlanProvider
     arguments: ["@cp.manager.plan"]

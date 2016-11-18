@@ -50,6 +50,10 @@ class PlanParser
         $typeOfPlan = strip_tags($this->parser->find('.article-content-main h3')->innerHtml);
         $weeks = $this->parser->find('#plans table');
 
+        if (0 >= count($weeks)) {
+            throw new \Exception(sprintf('Plan not found for this url: %s', $url));
+        }
+
         $plan = [
             'name' => strip_tags($nameOfPlan),
             'type' => strip_tags($typeOfPlan),

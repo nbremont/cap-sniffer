@@ -57,7 +57,7 @@ class CapSniffer
      */
     public function generateCalendar($typeName, $week, $seance)
     {
-        $type = $this->typeProvider->getTypeByName($typeName);
+        $type = $this->typeProvider->getType($typeName);
 
         $configuration = new Configuration();
         $configuration->setType($type);
