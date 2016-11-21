@@ -23,6 +23,14 @@ class SnifferTrainingCommand extends Command
     protected $container;
 
     /**
+     * @param Container $container
+     */
+    public function setContainer($container)
+    {
+        $this->container = $container;
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function configure()
@@ -50,13 +58,5 @@ class SnifferTrainingCommand extends Command
         $typeName = $helper->ask($input, $output, $question);
 
         $this->container->get('cp.cap_sniffer')->generateCalendar($typeName, $week, $seance);
-    }
-
-    /**
-     * @param Container $container
-     */
-    protected function setContainer($container)
-    {
-        $this->container = $container;
     }
 }
