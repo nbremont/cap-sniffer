@@ -7,6 +7,3 @@ build:
     override:
       -
         command: './vendor/bin/phpunit ./tests'
-        coverage:
-          file: 'coverage.clover'
-          format: 'php-clover'
