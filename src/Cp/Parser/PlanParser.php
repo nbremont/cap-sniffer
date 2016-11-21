@@ -43,7 +43,7 @@ class PlanParser
         $htmlContent = file_get_contents($url);
         if (isset($http_response_header)) {
             $responseCode = $this->headerParser->get('response_code', $http_response_header);
-            if (200 !== $responseCode) {
+            if ('200' != $responseCode) {
                 throw new \Exception(
                     sprintf('Url %s return http response code %s', $url, $responseCode),
                     $responseCode

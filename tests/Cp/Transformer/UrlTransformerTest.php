@@ -4,14 +4,17 @@ namespace Tests\Cp\Transformer;
 
 use Cp\Transformer\UrlTransformer;
 
-class UrlTransformerTest  extends \PHPUnit_Framework_TestCase
+/**
+ * Class UrlTransformerTest
+ */
+class UrlTransformerTest extends \PHPUnit_Framework_TestCase
 {
     public function testTransform()
     {
         $urlTransformer = new UrlTransformer('http://www.conseils-courseapied.com', [
             'plan-entrainement-10km',
             'semi-marathon',
-            'marathon'
+            'marathon',
         ]);
 
         $expected = 'http://www.conseils-courseapied.com/plan-entrainement/'

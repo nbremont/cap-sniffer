@@ -10,14 +10,14 @@ namespace Cp\Http;
 class HeaderParser
 {
     /**
-     * @param array $http_response_header
+     * @param array $httpResponseHeader
      *
      * @return array
      */
-    public function parseHeaders(array $http_response_header)
+    public function parseHeaders(array $httpResponseHeader)
     {
         $head = array();
-        foreach ($http_response_header as $v) {
+        foreach ($httpResponseHeader as $v) {
             $t = explode(':', $v, 2);
             if (isset($t[1])) {
                 $head[trim($t[0])] = trim($t[1]);
@@ -33,15 +33,15 @@ class HeaderParser
     }
 
     /**
-     * @param array $headerProperty
-     * @param array $http_response_header
+     * @param string $headerProperty
+     * @param array  $httpResponseHeader
      *
      * @return string
      */
-    public function get($headerProperty, array $http_response_header)
+    public function get($headerProperty, array $httpResponseHeader)
     {
-        return isset($this->parseHeaders($http_response_header)[$headerProperty])
-            ? $this->parseHeaders($http_response_header)[$headerProperty]
+        return isset($this->parseHeaders($httpResponseHeader)[$headerProperty])
+            ? $this->parseHeaders($httpResponseHeader)[$headerProperty]
             : null;
     }
 }
