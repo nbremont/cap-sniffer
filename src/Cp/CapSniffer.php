@@ -57,8 +57,52 @@ class CapSniffer
      * @param string $typeName
      * @param string $week
      * @param string $seance
+     *
+     * @return string
      */
     public function generateCalendar($typeName, $week, $seance)
+    {
+        return $this->calendarBuilder->exportCalendar($this->getPlan($typeName, $week, $seance));
+    }
+
+    /**
+     * @param string $typeName
+     * @param string $week
+     * @param string $seance
+     */
+    public function writeCalendar($typeName, $week, $seance)
+    {
+        $plan = $this->getPlan($typeName, $week, $seance);
+        file_put_contents(
+            __DIR__.'/../../'.$this->slug->slugify($plan->getName()).'.ics',
+            $this->generateCalendar($typeName, $week, $seance)
+        );
+    }
+
+    /**
+     * @param string $typeName
+     * @param string $week
+     * @param string $seance
+     *
+     * @return Plan
+     */
+    public function getPlan($typeName, $week, $seance)
+    {
+        $configuration = $this->createConfiguration($typeName, $week, $seance);
+        $plan = $this->planProvider->getPlanByConfiguration($configuration);
+        $plan->setConfiguration($configuration);
+
+        return $plan;
+    }
+
+    /**
+     * @param $typeName
+     * @param $week
+     * @param $seance
+     *
+     * @return Configuration
+     */
+    private function createConfiguration($typeName, $week, $seance)
     {
         $type = $this->typeProvider->getType($typeName);
 
@@ -67,14 +111,6 @@ class CapSniffer
         $configuration->setNumberOfWeek($week);
         $configuration->setNumberOfSeance($seance);
 
-        $plan = $this->planProvider->getPlanByConfiguration($configuration);
-        $plan->setConfiguration($configuration);
-
-        $calendarStream = $this->calendarBuilder->exportCalendar($plan);
-
-        file_put_contents(
-            __DIR__.'/../../'.$this->slug->slugify($plan->getName()).'.ics',
-            $calendarStream
-        );
+        return $configuration;
     }
 }

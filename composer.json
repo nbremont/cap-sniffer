@@ -1,7 +1,13 @@
 {
+    "authors": [
+        {
+            "name": "Nicolas BRÉMONT",
+            "email": "bremont.nicolas@gmail.com"
+        }
+    ],
     "require": {
         "php": ">=5.6",
-        "paquettg/php-html-parser" : "dev-master",
+        "paquettg/php-html-parser": "dev-master",
         "jms/serializer": "dev-master",
         "symfony/console": "^3.1",
         "jsvrcek/ics": "^0.3.0",
@@ -11,7 +17,7 @@
         "cocur/slugify": "^2.3",
         "doctrine/cache": "^1.6"
     },
-    "autoload" : {
+    "autoload": {
         "psr-0": {
             "Cp": "src/"
         }

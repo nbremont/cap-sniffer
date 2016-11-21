@@ -40,7 +40,7 @@ services:
   # Managers
   cp.manager.plan:
     class: Cp\Manager\PlanManager
-    arguments: ["@cp.parser.plan", "@cp.transformer.url", "@jms.serializer"]
+    arguments: ["@cp.parser.plan", "@cp.transformer.url", "@jms.serializer", "@doctrine.cache"]
   cp.manager.type:
     class: Cp\Manager\TypeManager
     arguments: ["@cp.parser.type", "%url.types%", "@doctrine.cache"]

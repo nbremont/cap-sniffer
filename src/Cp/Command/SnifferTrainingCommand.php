@@ -2,7 +2,6 @@
 
 namespace Cp\Command;
 
-use Cp\DomainObject\Configuration;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -57,6 +56,6 @@ class SnifferTrainingCommand extends Command
         $helper = $this->getHelper('question');
         $typeName = $helper->ask($input, $output, $question);
 
-        $this->container->get('cp.cap_sniffer')->generateCalendar($typeName, $week, $seance);
+        $this->container->get('cp.cap_sniffer')->writeCalendar($typeName, $week, $seance);
     }
 }
