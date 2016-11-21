@@ -19,7 +19,7 @@ class PlanProvider
     /**
      * PlanProvider constructor.
      *
-     * @param PlanManager  $planManager
+     * @param PlanManager $planManager
      */
     public function __construct(PlanManager $planManager)
     {

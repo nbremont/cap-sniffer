@@ -15,7 +15,7 @@ class TypeProvider
     public function getTypes()
     {
         return [
-            TypeInterface::TYPE_10k,
+            TypeInterface::TYPE_10K,
             TypeInterface::TYPE_SEMI,
             TypeInterface::TYPE_MARATHON,
         ];

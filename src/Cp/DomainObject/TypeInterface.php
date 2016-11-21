@@ -7,7 +7,7 @@ namespace Cp\DomainObject;
  */
 interface TypeInterface
 {
-    const TYPE_10k = 'plan-entrainement-10km';
+    const TYPE_10K = 'plan-entrainement-10km';
     const TYPE_SEMI = 'plan-entrainement-semi-marathon';
     const TYPE_MARATHON = ' plan-entrainement-marathon';
 }

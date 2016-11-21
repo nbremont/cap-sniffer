@@ -6,6 +6,9 @@ use Cp\DomainObject\Plan;
 use Jsvrcek\ICS\CalendarExport;
 use Jsvrcek\ICS\Model\Calendar;
 
+/**
+ * Class CalendarBuilder
+ */
 class CalendarBuilder
 {
     /**
@@ -59,15 +62,20 @@ class CalendarBuilder
     public function getRecoveryDay($numSeance)
     {
         switch ($numSeance) {
-            case 3: return [3, 3, 3];
+            case 3:
+                return [3, 3, 3];
                 break;
-            case 4: return [2, 2, 2, 2];
+            case 4:
+                return [2, 2, 2, 2];
                 break;
-            case 5: return [1, 2, 1, 2, 1];
+            case 5:
+                return [1, 2, 1, 2, 1];
                 break;
-            case 6: return [1, 1, 1, 1, 1, 1];
+            case 6:
+                return [1, 1, 1, 1, 1, 1];
                 break;
-            case 7: return [1, 1, 1, 1, 1, 1, 1];
+            case 7:
+                return [1, 1, 1, 1, 1, 1, 1];
                 break;
         }
     }

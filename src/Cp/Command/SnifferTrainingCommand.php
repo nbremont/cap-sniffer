@@ -10,6 +10,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\DependencyInjection\Container;
 
+/**
+ * Class SnifferTrainingCommand
+ */
 class SnifferTrainingCommand extends Command
 {
     const FILE_NAME = 'planning.ics';
@@ -52,7 +55,7 @@ class SnifferTrainingCommand extends Command
     /**
      * @param Container $container
      */
-    public function setContainer($container)
+    protected function setContainer($container)
     {
         $this->container = $container;
     }

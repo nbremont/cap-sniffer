@@ -23,15 +23,16 @@ class UrlTransformer
     }
 
     /**
-     * @param string $seance
      * @param string $week
+     * @param string $seance
      * @param string $type
      *
      * @return string
      */
     public function transformPlan($week, $seance, $type)
     {
-        return sprintf('%s/plan-entrainement/%s/%s-seances-%s-semaines.html',
+        return sprintf(
+            '%s/plan-entrainement/%s/%s-seances-%s-semaines.html',
             $this->baseUrl,
             $type,
             $seance,

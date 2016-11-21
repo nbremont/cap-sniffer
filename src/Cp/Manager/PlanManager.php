@@ -60,9 +60,9 @@ class PlanManager
                 $this->urlTransformer->transformPlan($week, $seance, $type)
             );
         } catch (\Exception $e) {
-            throw new ConfigurationException(sprintf(
-                'Configuration with week: %s, seance: %s and type:%s is not available', $week, $seance, $type
-            ));
+            throw new ConfigurationException(
+                sprintf('Configuration with week: %s, seance: %s and type:%s is not available', $week, $seance, $type)
+            );
         }
 
         return $this->serializer->deserialize($jsonString, Plan::class, 'json');

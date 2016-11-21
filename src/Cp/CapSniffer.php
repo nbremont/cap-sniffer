@@ -8,6 +8,9 @@ use Cp\DomainObject\Configuration;
 use Cp\Provider\PlanProvider;
 use Cp\Provider\TypeProvider;
 
+/**
+ * Class CapSniffer
+ */
 class CapSniffer
 {
     /**

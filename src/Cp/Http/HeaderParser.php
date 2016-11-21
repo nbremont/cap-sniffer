@@ -17,9 +17,9 @@ class HeaderParser
     public function parseHeaders(array $http_response_header)
     {
         $head = array();
-        foreach ($http_response_header as $k => $v) {
-            $t = explode( ':', $v, 2 );
-            if (isset( $t[1] )) {
+        foreach ($http_response_header as $v) {
+            $t = explode(':', $v, 2);
+            if (isset($t[1])) {
                 $head[trim($t[0])] = trim($t[1]);
             } else {
                 $head[] = $v;

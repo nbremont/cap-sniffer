@@ -4,6 +4,9 @@ namespace Cp\DomainObject;
 
 use JMS\Serializer\Annotation as JMS;
 
+/**
+ * Class Training
+ */
 class Training
 {
     /**
