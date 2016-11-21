@@ -41,8 +41,14 @@ class PlanParser
     public function parseToJson($url)
     {
         $htmlContent = file_get_contents($url);
-        if (200 !== $responseCode = $this->headerParser->get('response_code', $http_response_header)) {
-            throw new \Exception(sprintf('Url %s return http response code %s', $url, $responseCode), $responseCode);
+        if (isset($http_response_header)) {
+            $responseCode = $this->headerParser->get('response_code', $http_response_header);
+            if (200 !== $responseCode) {
+                throw new \Exception(
+                    sprintf('Url %s return http response code %s', $url, $responseCode),
+                    $responseCode
+                );
+            }
         }
 
         $this->parser->load($htmlContent);
@@ -50,7 +56,7 @@ class PlanParser
         $typeOfPlan = strip_tags($this->parser->find('.article-content-main h3')->innerHtml);
         $weeks = $this->parser->find('#plans table');
 
-        if (0 >= count($weeks)) {
+        if (empty($weeks)) {
             throw new \Exception(sprintf('Plan not found for this url: %s', $url));
         }
 

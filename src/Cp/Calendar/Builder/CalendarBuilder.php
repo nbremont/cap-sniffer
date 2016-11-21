@@ -64,19 +64,14 @@ class CalendarBuilder
         switch ($numSeance) {
             case 3:
                 return [3, 3, 3];
-                break;
             case 4:
                 return [2, 2, 2, 2];
-                break;
             case 5:
                 return [1, 2, 1, 2, 1];
-                break;
             case 6:
                 return [1, 1, 1, 1, 1, 1];
-                break;
             case 7:
                 return [1, 1, 1, 1, 1, 1, 1];
-                break;
         }
     }
 
