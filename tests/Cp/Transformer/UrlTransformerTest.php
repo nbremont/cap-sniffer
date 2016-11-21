@@ -11,11 +11,7 @@ class UrlTransformerTest extends \PHPUnit_Framework_TestCase
 {
     public function testTransform()
     {
-        $urlTransformer = new UrlTransformer('http://www.conseils-courseapied.com', [
-            'plan-entrainement-10km',
-            'semi-marathon',
-            'marathon',
-        ]);
+        $urlTransformer = new UrlTransformer('http://www.conseils-courseapied.com');
 
         $expected = 'http://www.conseils-courseapied.com/plan-entrainement/'
             .'plan-entrainement-10km/3-seances-6-semaines.html';
