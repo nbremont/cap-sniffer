@@ -36,7 +36,7 @@ class SnifferTrainingCommand extends Command
     {
         $this->setName('cp:sniffer')
             ->setDescription('Get training plan by url')
-            ->addArgument('week', InputArgument::OPTIONAL, 'Number of week', 6)
+            ->addArgument('week', InputArgument::OPTIONAL, 'Number of week', 8)
             ->addArgument('seance', InputArgument::OPTIONAL, 'Number of seance', 3)
         ;
     }

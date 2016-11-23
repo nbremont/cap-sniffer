@@ -1,4 +1,10 @@
 {
+    "name": "nbremont/cap-sniffer",
+    "type": "library",
+    "description": "Library to generate training of running",
+    "keywords": ["running","training","run"],
+    "homepage": "https://github.com/nbremont",
+    "license": "MIT",
     "authors": [
         {
             "name": "Nicolas BRÉMONT",
