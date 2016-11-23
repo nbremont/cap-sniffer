@@ -3,7 +3,7 @@
     "type": "library",
     "description": "Library to generate training of running",
     "keywords": ["running","training","run"],
-    "homepage": "https://github.com/nbremont",
+    "homepage": "https://github.com/nbremont/cap-sniffer",
     "license": "MIT",
     "authors": [
         {
