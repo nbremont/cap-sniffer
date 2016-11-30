@@ -62,9 +62,7 @@ services:
   cp.parser.plan:
     class: Cp\Parser\PlanParser
     arguments: ["@phphtml.parser.dom", "@cp.http.parser.header"]
-  cp.parser.type:
-    class: Cp\Parser\TypeParser
-    arguments: ["@phphtml.parser.dom"]
+  # Facade
   cp.cap_sniffer:
     class: Cp\CapSniffer
     arguments: ["@cp.provider.type", "@cp.provider.plan", "@cp.calendar.builder.calendar", "@cocur.slugify"]

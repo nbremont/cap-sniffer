@@ -72,7 +72,12 @@ class PlanManager
                 );
             } catch (\Exception $e) {
                 throw new ConfigurationException(
-                    sprintf('Configuration with week: %s, seance: %s and type:%s is not available', $week, $seance, $type)
+                    sprintf(
+                        'Configuration with week: %s, seance: %s and type:%s is not available',
+                        $week,
+                        $seance,
+                        $type
+                    )
                 );
             }
             $plan = $this->serializer->deserialize($jsonString, Plan::class, 'json');
