@@ -1,7 +1,37 @@
+filter:
+    excluded_paths:
+        - "tests/"
+
 checks:
     php:
         code_rating: true
         duplication: true
+        uppercase_constants: true
+        parameter_doc_comments: true
+        use_self_instead_of_fqcn: true
+        simplify_boolean_return: true
+        return_doc_comments: true
+        return_doc_comment_if_not_inferrable: true
+        remove_extra_empty_lines: true
+        properties_in_camelcaps: true
+        parameters_in_camelcaps: true
+        param_doc_comment_if_not_inferrable: true
+        overriding_parameter: true
+        no_short_method_names:
+            minimum: '5'
+        no_new_line_at_end_of_file: true
+        no_goto: true
+        function_in_camel_caps: true
+        encourage_single_quotes: true
+        classes_in_camel_caps: true
+        check_method_contracts:
+            verify_interface_like_constraints: true
+            verify_documented_constraints: true
+            verify_parent_constraints: true
+        avoid_todo_comments: true
+        avoid_perl_style_comments: true
+        avoid_multiple_statements_on_same_line: true
+        align_assignments: true
 build:
   tests:
     override:
