@@ -46,7 +46,7 @@ class PlanParser
         $this->parser->load($htmlContent);
 
         $weeks = $this->parser->find('#plans table');
-        if (empty($weeks)) {
+        if (0 >= $weeks->count()) {
             throw new \Exception(sprintf('Plan not found for this url: %s', $url));
         }
 
@@ -75,11 +75,11 @@ class PlanParser
     public function parseToHtml($url)
     {
         $htmlContent = file_get_contents($url);
-        $this->generateBadRequestException($url);
 
+        $this->generateBadRequestException($url);
         $this->parser->load($htmlContent);
 
-        return $this->parser->find('#plans table')->innerHtml;
+        return sprintf('%s%s%s', '<table>', $this->parser->find('#plans table')->innerHtml, '</table>');
     }
 
     /**
@@ -102,7 +102,7 @@ class PlanParser
      *
      * @throws \Exception
      */
-    private function generateBadRequestException($url)
+    public function generateBadRequestException($url)
     {
         if (isset($http_response_header)) {
             $responseCode = $this->headerParser->get('response_code', $http_response_header);
