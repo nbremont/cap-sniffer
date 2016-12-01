@@ -17,11 +17,6 @@ use JMS\Serializer\Serializer;
 class PlanManagerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var PlanManager
-     */
-    protected $planManager;
-
-    /**
      * @var PHPUnit_Framework_MockObject_MockBuilder
      */
     protected $planParserMock;

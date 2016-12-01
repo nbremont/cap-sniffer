@@ -41,6 +41,9 @@ services:
   cp.manager.plan:
     class: Cp\Manager\PlanManager
     arguments: ["@cp.parser.plan", "@cp.transformer.url", "@jms.serializer", "@doctrine.cache"]
+  cp.manager.configuration:
+    class: Cp\Manager\ConfigurationManager
+    arguments: ["@cp.provider.type"]
   # Provider
   cp.provider.type:
     class: Cp\Provider\TypeProvider
@@ -54,12 +57,15 @@ services:
     class: Cp\Calendar\Builder\CalendarBuilder
     arguments: ["@ics.calendar_export", "@cp.calendar.buider.calendar_event"]
   # Parser
-  cp.http.parser.header:
-    class: Cp\Http\HeaderParser
   cp.parser.plan:
     class: Cp\Parser\PlanParser
-    arguments: ["@phphtml.parser.dom", "@cp.http.parser.header"]
+    arguments: ["@phphtml.parser.dom"]
   # Facade
   cp.cap_sniffer:
     class: Cp\CapSniffer
-    arguments: ["@cp.provider.type", "@cp.provider.plan", "@cp.calendar.builder.calendar", "@cocur.slugify"]
+    arguments:
+      - "@cp.provider.type"
+      - "@cp.provider.plan"
+      - "@cp.calendar.builder.calendar"
+      - "@cocur.slugify"
+      - "@cp.manager.configuration"

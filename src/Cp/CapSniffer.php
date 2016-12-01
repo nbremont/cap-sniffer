@@ -5,6 +5,7 @@ namespace Cp;
 use Cocur\Slugify\Slugify;
 use Cp\Calendar\Builder\CalendarBuilder;
 use Cp\DomainObject\Configuration;
+use Cp\Manager\ConfigurationManager;
 use Cp\Provider\PlanProvider;
 use Cp\Provider\TypeProvider;
 
@@ -34,23 +35,31 @@ class CapSniffer
     private $calendarBuilder;
 
     /**
+     * @var ConfigurationManager
+     */
+    private $configurationManager;
+
+    /**
      * CapSniffer constructor.
      *
-     * @param TypeProvider    $typeProvider
-     * @param PlanProvider    $planProvider
-     * @param CalendarBuilder $calendarBuilder
-     * @param Slugify         $slug
+     * @param TypeProvider         $typeProvider
+     * @param PlanProvider         $planProvider
+     * @param CalendarBuilder      $calendarBuilder
+     * @param Slugify              $slug
+     * @param ConfigurationManager $configurationManager
      */
     public function __construct(
         TypeProvider $typeProvider,
         PlanProvider $planProvider,
         CalendarBuilder $calendarBuilder,
-        Slugify $slug
+        Slugify $slug,
+        ConfigurationManager $configurationManager
     ) {
         $this->typeProvider = $typeProvider;
         $this->planProvider = $planProvider;
         $this->calendarBuilder = $calendarBuilder;
         $this->slug = $slug;
+        $this->configurationManager = $configurationManager;
     }
 
     /**
@@ -88,29 +97,10 @@ class CapSniffer
      */
     public function getPlan($typeName, $week, $seance)
     {
-        $configuration = $this->createConfiguration($typeName, $week, $seance);
+        $configuration = $this->configurationManager->createConfiguration($typeName, $week, $seance);
         $plan = $this->planProvider->getPlanByConfiguration($configuration);
         $plan->setConfiguration($configuration);
 
         return $plan;
-    }
-
-    /**
-     * @param $typeName
-     * @param $week
-     * @param $seance
-     *
-     * @return Configuration
-     */
-    private function createConfiguration($typeName, $week, $seance)
-    {
-        $type = $this->typeProvider->getType($typeName);
-
-        $configuration = new Configuration();
-        $configuration->setType($type);
-        $configuration->setNumberOfWeek($week);
-        $configuration->setNumberOfSeance($seance);
-
-        return $configuration;
     }
 }

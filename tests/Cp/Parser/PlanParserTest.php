@@ -2,7 +2,6 @@
 
 namespace Tests\Cp\Parser;
 
-use Cp\Http\HeaderParser;
 use Cp\Parser\PlanParser;
 use PHPHtmlParser\Dom;
 
@@ -17,7 +16,7 @@ class PlanParserTest extends \PHPUnit_Framework_TestCase
     public function testParseToJson()
     {
         $url = __DIR__.'/../../fixtures/html/Plan-10km-3-seances-6semaines.htm';
-        $planParser = new PlanParser(new Dom(), new HeaderParser());
+        $planParser = new PlanParser(new Dom());
 
         $expected = [
             'name' => 'Plans entrainement 10 km en 50 / 55 minutes',
@@ -52,7 +51,7 @@ class PlanParserTest extends \PHPUnit_Framework_TestCase
     public function testParseToJsonWithException()
     {
         $url = __DIR__.'/../../fixtures/html/wrong-page.htm';
-        $planParser = new PlanParser(new Dom(), new HeaderParser());
+        $planParser = new PlanParser(new Dom());
 
         $planParser->parseToJson($url);
     }
@@ -63,7 +62,7 @@ class PlanParserTest extends \PHPUnit_Framework_TestCase
     public function testParseToHtml()
     {
         $url = __DIR__.'/../../fixtures/html/Plan-10km-3-seances-6semaines.htm';
-        $planParser = new PlanParser(new Dom(), new HeaderParser());
+        $planParser = new PlanParser(new Dom());
 
         $htmlContent = '<table>
             <thead>

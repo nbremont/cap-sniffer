@@ -72,6 +72,9 @@ class CalendarBuilder
                 return [1, 1, 1, 1, 1, 1];
             case 7:
                 return [1, 1, 1, 1, 1, 1, 1];
+
+            default:
+                return null;
         }
     }
 
