@@ -19,7 +19,6 @@ checks:
         overriding_parameter: true
         no_short_method_names:
             minimum: '5'
-        no_new_line_at_end_of_file: true
         no_goto: true
         function_in_camel_caps: true
         encourage_single_quotes: true
@@ -31,7 +30,7 @@ checks:
         avoid_todo_comments: true
         avoid_perl_style_comments: true
         avoid_multiple_statements_on_same_line: true
-        align_assignments: true
+
 build:
   tests:
     override:
