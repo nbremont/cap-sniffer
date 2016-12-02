@@ -2,12 +2,13 @@
 
 namespace Cp\Command;
 
+use Cp\CapSniffer;
+use Cp\Provider\TypeProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
-use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Class SnifferTrainingCommand
@@ -17,16 +18,27 @@ class SnifferTrainingCommand extends Command
     const FILE_NAME = 'planning.ics';
 
     /**
-     * @var Container
+     * @var TypeProvider
      */
-    protected $container;
+    private $typeProvider;
 
     /**
-     * @param Container $container
+     * @var CapSniffer
      */
-    public function setContainer($container)
+    private $capSniffer;
+
+    /**
+     * SnifferTrainingCommand constructor.
+     *
+     * @param TypeProvider $typeProvider
+     * @param CapSniffer   $capSniffer
+     * @param null|string  $name
+     */
+    public function __construct(TypeProvider $typeProvider, CapSniffer $capSniffer, $name = null)
     {
-        $this->container = $container;
+        parent::__construct($name);
+        $this->typeProvider = $typeProvider;
+        $this->capSniffer = $capSniffer;
     }
 
     /**
@@ -49,13 +61,15 @@ class SnifferTrainingCommand extends Command
         $week = $input->getArgument('week');
         $seance = $input->getArgument('seance');
 
-        $typeOfPlan = $this->container->get('cp.provider.type')->getTypes();
+        $typeOfPlan = $this->typeProvider->getTypes();
         $question = new ChoiceQuestion('Please select a plan', $typeOfPlan, 0);
         $question->setErrorMessage('Plan %s is not valid.');
 
         $helper = $this->getHelper('question');
         $typeName = $helper->ask($input, $output, $question);
 
-        $this->container->get('cp.cap_sniffer')->writeCalendar($typeName, $week, $seance);
+        $this->capSniffer->writeCalendar($typeName, $week, $seance);
+
+        $output->writeln('Calendar generate sucessfuly');
     }
 }

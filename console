@@ -14,8 +14,10 @@ $container = new \Symfony\Component\DependencyInjection\ContainerBuilder();
 $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/config'));
 $loader->load('services.yml');
 
-$command = new \Cp\Command\SnifferTrainingCommand();
-$command->setContainer($container);
+$command = new \Cp\Command\SnifferTrainingCommand(
+    $container->get('cp.provider.type'),
+    $container->get('cp.cap_sniffer')
+);
 
 $application = new Application();
 $application->add($command);
