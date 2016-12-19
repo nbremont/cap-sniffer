@@ -28,6 +28,11 @@
             "Cp": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-0": {
+            "Tests\\Cp": "tests/"
+        }
+    },
     "require-dev": {
         "phpunit/phpunit": "^5.6"
     }
