@@ -128,6 +128,25 @@ class CapSnifferTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test message with calendar was generated with success
+     */
+    public function testGetFileName()
+    {
+        $capSniffer = new CapSniffer(
+            $this->typeProviderMock,
+            $this->planProviderMock,
+            $this->calendarBuilderMock,
+            $this->slugMock,
+            $this->configurationManagerMock
+        );
+
+        $this->assertEquals(
+            'plans-entrainement-10-km-en-50-55-minutes.ics',
+            $capSniffer->getFileName(TypeInterface::TYPE_10K, 8, 3)
+        );
+    }
+
+    /**
      * Remove files generate by tests
      */
     private function removeTestFiles()

@@ -53,6 +53,6 @@ class SnifferTrainingCommandTest extends \PHPUnit_Framework_TestCase
             array('command' => $command->getName())
         );
 
-        $this->assertRegExp('/Calendar generate sucessfuly\n/', $commandTester->getDisplay());
+        $this->assertRegExp('/Calendar generate successfully in \n/', $commandTester->getDisplay());
     }
 }
