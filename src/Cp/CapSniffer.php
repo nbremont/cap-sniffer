@@ -81,9 +81,8 @@ class CapSniffer
      */
     public function writeCalendar($typeName, $week, $seance)
     {
-        $plan = $this->getPlan($typeName, $week, $seance);
         file_put_contents(
-            __DIR__.'/../../'.$this->slug->slugify($plan->getName()).'.ics',
+            __DIR__.'/../../'.$this->getFileName($typeName, $week, $seance),
             $this->generateCalendar($typeName, $week, $seance)
         );
     }
@@ -102,5 +101,17 @@ class CapSniffer
         $plan->setConfiguration($configuration);
 
         return $plan;
+    }
+
+    /**
+     * @param string $typeName
+     * @param string $week
+     * @param string $seance
+     *
+     * @return string
+     */
+    public function getFileName($typeName, $week, $seance)
+    {
+        return $this->slug->slugify($this->getPlan($typeName, $week, $seance)->getName()).'.ics';
     }
 }
