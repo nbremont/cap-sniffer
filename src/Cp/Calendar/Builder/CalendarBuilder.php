@@ -81,7 +81,7 @@ class CalendarBuilder
     /**
      * @param Plan $plan
      *
-     * @return array
+     * @return string
      */
     public function exportCalendar(Plan $plan)
     {
