@@ -15,9 +15,9 @@ class TypeProvider
     public function getTypes()
     {
         return [
-            TypeInterface::TYPE_10K,
-            TypeInterface::TYPE_SEMI,
-            TypeInterface::TYPE_MARATHON,
+            '10' => TypeInterface::TYPE_10K,
+            '21' => TypeInterface::TYPE_SEMI,
+            '42' => TypeInterface::TYPE_MARATHON,
         ];
     }
 
@@ -26,10 +26,20 @@ class TypeProvider
      *
      * @return string|null
      */
-    public function getType($type)
+    public function getTypeByName($type)
     {
         $key = array_search($type, $this->getTypes());
 
         return false !== $key ? $this->getTypes()[$key] : null;
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return string|null
+     */
+    public function getTypeByKey($key)
+    {
+        return isset($this->getTypes()[$key]) ? $this->getTypes()[$key] : null;
     }
 }

@@ -34,7 +34,7 @@ class ConfigurationManager
      */
     public function createConfiguration($typeName, $week, $seance)
     {
-        $type = $this->typeProvider->getType($typeName);
+        $type = $this->typeProvider->getTypeByName($typeName);
 
         $configuration = new Configuration();
         $configuration->setType($type);
