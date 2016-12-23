@@ -17,9 +17,9 @@ class TypeProviderTest extends \PHPUnit_Framework_TestCase
         $typeProvider = new TypeProvider();
 
         $expected = [
-            'plan-entrainement-10km',
-            'plan-entrainement-semi-marathon',
-            'plan-entrainement-marathon',
+            '10' => 'plan-entrainement-10km',
+            '21' => 'plan-entrainement-semi-marathon',
+            '42' => 'plan-entrainement-marathon',
         ];
 
         $this->assertEquals($expected, $typeProvider->getTypes());
@@ -32,10 +32,10 @@ class TypeProviderTest extends \PHPUnit_Framework_TestCase
     {
         $typeProvider = new TypeProvider();
 
-        $this->assertEquals('plan-entrainement-10km', $typeProvider->getType('plan-entrainement-10km'));
-        $this->assertEquals('plan-entrainement-semi-marathon', $typeProvider->getType('plan-entrainement-semi-marathon'));
-        $this->assertEquals('plan-entrainement-marathon', $typeProvider->getType('plan-entrainement-marathon'));
+        $this->assertEquals('plan-entrainement-10km', $typeProvider->getTypeByName('plan-entrainement-10km'));
+        $this->assertEquals('plan-entrainement-semi-marathon', $typeProvider->getTypeByName('plan-entrainement-semi-marathon'));
+        $this->assertEquals('plan-entrainement-marathon', $typeProvider->getTypeByName('plan-entrainement-marathon'));
 
-        $this->assertEquals(null, $typeProvider->getType('fake'));
+        $this->assertEquals(null, $typeProvider->getTypeByName('fake'));
     }
 }
