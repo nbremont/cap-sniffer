@@ -2,7 +2,6 @@
 
 namespace Cp\Parser;
 
-use Cp\Http\HeaderParser;
 use PHPHtmlParser\Dom;
 
 /**
