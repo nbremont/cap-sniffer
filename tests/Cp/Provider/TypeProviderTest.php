@@ -2,6 +2,7 @@
 
 namespace Tests\Cp\Provider;
 
+use Cp\DomainObject\TypeInterface;
 use Cp\Provider\TypeProvider;
 
 /**
@@ -26,9 +27,9 @@ class TypeProviderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test return type available
+     * Test return type available by name
      */
-    public function testGetType()
+    public function testGetTypeByName()
     {
         $typeProvider = new TypeProvider();
 
@@ -37,5 +38,16 @@ class TypeProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('plan-entrainement-marathon', $typeProvider->getTypeByName('plan-entrainement-marathon'));
 
         $this->assertEquals(null, $typeProvider->getTypeByName('fake'));
+    }
+
+    /**
+     * Test return type available by key
+     */
+    public function testGetTypeByKey()
+    {
+        $typeProvider = new TypeProvider();
+
+        $this->assertEquals(TypeInterface::TYPE_10K, $typeProvider->getTypeByKey(10));
+        $this->assertEquals(null, $typeProvider->getTypeByKey(99));
     }
 }

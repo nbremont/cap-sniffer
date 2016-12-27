@@ -4,6 +4,7 @@ namespace Tests\Cp\Parser;
 
 use Cp\Parser\PlanParser;
 use PHPHtmlParser\Dom;
+use stringEncode\Exception;
 
 /**
  * Class PlanParserTest
@@ -20,7 +21,7 @@ class PlanParserTest extends \PHPUnit_Framework_TestCase
 
         $expected = [
             'name' => 'Plans entrainement 10 km en 50 / 55 minutes',
-            'type' => 'Plan 10 km avec 3 séances / 6 semaines',
+            'type' => 'Plan 10 km avec 3 séances sur 6 semaines',
             'weeks' => [
                 [
                     'name' => 'Semaine 1',
@@ -46,7 +47,7 @@ class PlanParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException Exception
      */
     public function testParseToJsonWithException()
     {

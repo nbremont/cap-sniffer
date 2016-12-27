@@ -41,6 +41,16 @@ class UrlTransformer
     }
 
     /**
+     * @param string $typeName
+     *
+     * @return string
+     */
+    public function transformType($typeName)
+    {
+        return sprintf('%s/plan-entrainement/%s.html', $this->baseUrl, $typeName);
+    }
+
+    /**
      * @param string $url
      *
      * @return array

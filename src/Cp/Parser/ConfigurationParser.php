@@ -3,6 +3,7 @@
 namespace Cp\Parser;
 
 use Cp\Transformer\UrlTransformer;
+use JMS\Serializer\Exception\LogicException;
 
 /**
  * Class ConfigurationParser
@@ -31,7 +32,7 @@ class ConfigurationParser extends AbstractCpParser
         $configurationList = [];
         foreach ($configurations as $conf) {
             foreach ($conf->find('p a') as $link) {
-                $configurationFor = $this->urlTransformer->reverseConfiguration($link->href);
+                $configurationFor = $this->getUrlTransformer()->reverseConfiguration($link->href);
                 if (null !== $configurationFor) {
                     $configurationList[] = $configurationFor;
                 }
@@ -39,6 +40,20 @@ class ConfigurationParser extends AbstractCpParser
         }
 
         return json_encode($configurationList, true);
+    }
+
+    /**
+     * @return UrlTransformer
+     *
+     * @throws LogicException
+     */
+    public function getUrlTransformer()
+    {
+        if (null === $this->urlTransformer) {
+            throw new LogicException('urlTransformer is not set, call setUrlTransformer for it');
+        }
+
+        return $this->urlTransformer;
     }
 
     /**
