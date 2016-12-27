@@ -114,4 +114,10 @@ class CapSniffer
     {
         return $this->slug->slugify($this->getPlan($typeName, $week, $seance)->getName()).'.ics';
     }
+
+    public function testConfigurationParse()
+    {
+        $result = $this->configurationManager->findConfigurationsByType('plan-entrainement-10km');
+        var_dump($result); die;
+    }
 }

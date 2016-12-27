@@ -43,7 +43,7 @@ services:
     arguments: ["@cp.parser.plan", "@cp.transformer.url", "@jms.serializer", "@doctrine.cache"]
   cp.manager.configuration:
     class: Cp\Manager\ConfigurationManager
-    arguments: ["@cp.provider.type"]
+    arguments: ["@cp.provider.type", "@cp.parser.configuration", "@doctrine.cache"]
   # Provider
   cp.provider.type:
     class: Cp\Provider\TypeProvider
@@ -60,6 +60,11 @@ services:
   cp.parser.plan:
     class: Cp\Parser\PlanParser
     arguments: ["@phphtml.parser.dom"]
+  cp.parser.configuration:
+    class: Cp\Parser\ConfigurationParser
+    arguments: ["@phphtml.parser.dom"]
+    calls:
+          - ["setUrlTransformer", ["@cp.transformer.url"]]
   # Facade
   cp.cap_sniffer:
     class: Cp\CapSniffer

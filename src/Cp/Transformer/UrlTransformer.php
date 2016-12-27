@@ -39,4 +39,27 @@ class UrlTransformer
             $week
         );
     }
+
+    /**
+     * @param string $url
+     *
+     * @return array
+     */
+    public function reverseConfiguration($url)
+    {
+        $thirdPart = substr($url, strrpos($url, '/') + 1);
+        preg_match_all('/^([\d]{1,2})-[\w]+-([\d]{1,2})/', $thirdPart, $matches);
+
+        $seance = isset($matches[1][0]) ? $matches[1][0] : null;
+        $week = isset($matches[2][0]) ? $matches[2][0] : null;
+
+        if (null === $seance || null === $week) {
+            return null;
+        }
+
+        return [
+            'seance' => $seance,
+            'week' => $week,
+        ];
+    }
 }
