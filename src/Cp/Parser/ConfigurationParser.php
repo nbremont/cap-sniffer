@@ -1,6 +1,7 @@
 <?php
 
 namespace Cp\Parser;
+
 use Cp\Transformer\UrlTransformer;
 
 /**
@@ -30,8 +31,10 @@ class ConfigurationParser extends AbstractCpParser
         $configurationList = [];
         foreach ($configurations as $conf) {
             foreach ($conf->find('p a') as $link) {
-                if (null !== $configurationFor = $this->urlTransformer->reverseConfiguration($link->href))
-                $configurationList[] = $configurationFor;
+                $configurationFor = $this->urlTransformer->reverseConfiguration($link->href);
+                if (null !== $configurationFor) {
+                    $configurationList[] = $configurationFor;
+                }
             }
         }
 

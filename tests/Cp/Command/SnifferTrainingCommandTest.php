@@ -43,7 +43,7 @@ class SnifferTrainingCommandTest extends \PHPUnit_Framework_TestCase
         $helperMock
             ->expects($this->any())
             ->method('ask')
-            ->willReturn(0)
+            ->willReturn(10)
         ;
 
         $command->getHelperSet()->set($helperMock, 'question');

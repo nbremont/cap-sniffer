@@ -58,23 +58,22 @@ class SnifferTrainingCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->capSniffer->testConfigurationParse();
-//        $week = $input->getArgument('week');
-//        $seance = $input->getArgument('seance');
-//
-//        $typeOfPlan = $this->typeProvider->getTypes();
-//        $question = new ChoiceQuestion('Please select a plan', $typeOfPlan, 0);
-//        $question->setErrorMessage('Plan %s is not valid.');
-//
-//        $helper = $this->getHelper('question');
-//        $typeName = $helper->ask($input, $output, $question);
-//
-//        $this->capSniffer->writeCalendar($typeName, $week, $seance);
-//
-//        $output
-//            ->writeln(sprintf(
-//                'Calendar generate successfully in <info>%s</info>',
-//                $this->capSniffer->getFileName($typeName, $week, $seance)
-//            ));
+        $week = $input->getArgument('week');
+        $seance = $input->getArgument('seance');
+
+        $typeOfPlan = $this->typeProvider->getTypes();
+        $question = new ChoiceQuestion('Please select a plan', $typeOfPlan, 0);
+        $question->setErrorMessage('Plan %s is not valid.');
+
+        $helper = $this->getHelper('question');
+        $typeName = $helper->ask($input, $output, $question);
+
+        $this->capSniffer->writeCalendar($typeName, $week, $seance);
+
+        $output
+            ->writeln(sprintf(
+                'Calendar generate successfully in <info>%s</info>',
+                $this->capSniffer->getFileName($typeName, $week, $seance)
+            ));
     }
 }

@@ -72,6 +72,7 @@ class ConfigurationManager
      */
     public function findConfigurationsByType($typeName)
     {
+        /*
         $configurationForType = $this->memcache->fetch(self::CACHE_KEY.$typeName);
 
         if (false === $configurationForType) {
@@ -94,5 +95,6 @@ class ConfigurationManager
         }
 
         return $configurationList;
+        */
     }
 }
