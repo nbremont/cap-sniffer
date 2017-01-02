@@ -43,7 +43,7 @@ services:
     arguments: ["@cp.parser.plan", "@cp.transformer.url", "@jms.serializer", "@doctrine.cache"]
   cp.manager.configuration:
     class: Cp\Manager\ConfigurationManager
-    arguments: ["@cp.provider.type", "@cp.parser.configuration", "@doctrine.cache"]
+    arguments: ["@cp.provider.type", "@cp.parser.configuration", "@doctrine.cache", "@cp.transformer.url"]
   # Provider
   cp.provider.type:
     class: Cp\Provider\TypeProvider
