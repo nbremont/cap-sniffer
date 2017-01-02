@@ -22,6 +22,7 @@ class CalendarEventBuilder
             $event = new CalendarEvent();
             $event->setUid(md5(uniqid()));
             $event->setSummary($training->getContent());
+            $event->setDescription($training->getContent());
             $events[] = $event;
         }
 
