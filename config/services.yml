@@ -50,6 +50,9 @@ services:
   cp.provider.plan:
     class: Cp\Provider\PlanProvider
     arguments: ["@cp.manager.plan"]
+  cp.provider.configuration:
+    class: Cp\Provider\ConfigurationProvider
+    arguments: ["@cp.manager.configuration"]
   # Builders
   cp.calendar.buider.calendar_event:
     class: Cp\Calendar\Builder\CalendarEventBuilder
@@ -69,8 +72,8 @@ services:
   cp.cap_sniffer:
     class: Cp\CapSniffer
     arguments:
+      - "@cp.calendar.builder.calendar"
       - "@cp.provider.type"
       - "@cp.provider.plan"
-      - "@cp.calendar.builder.calendar"
+      - "@cp.provider.configuration"
       - "@cocur.slugify"
-      - "@cp.manager.configuration"
