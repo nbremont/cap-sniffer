@@ -7,6 +7,6 @@ namespace Cp\Exception;
  *
  * @package Cp\Exception
  */
-class ConfigurationException extends \Exception
+class ConfigurationNotFoundException extends \Exception
 {
 }

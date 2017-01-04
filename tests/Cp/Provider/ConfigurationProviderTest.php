@@ -41,17 +41,6 @@ class ConfigurationProviderTest extends \PHPUnit_Framework_TestCase
             ->getMockBuilder(Configuration::class)
             ->disableOriginalConstructor()
             ->getMock();
-
-        $this->configurationManagerMock
-            ->expects($this->once())
-            ->method('findConfigurationsByType')
-            ->with(TypeInterface::TYPE_10K)
-            ->willReturn([
-                $this->configurationMock,
-                $this->configurationMock,
-            ]);
-
-        $this->configurationProvider = new ConfigurationProvider($this->configurationManagerMock);
     }
 
     /**
@@ -59,14 +48,63 @@ class ConfigurationProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetConfigurationByType()
     {
+        $this->configurationManagerMock
+            ->expects($this->any())
+            ->method('findConfigurationsByType')
+            ->with(TypeInterface::TYPE_10K)
+            ->willReturn([
+                $this->configurationMock,
+                $this->configurationMock,
+            ]);
+
         $expected = [
             $this->configurationMock,
             $this->configurationMock,
         ];
 
+        $configurationProvider = new ConfigurationProvider($this->configurationManagerMock);
+
         $this->assertEquals(
             $expected,
-            $this->configurationProvider->getConfigurationByType(TypeInterface::TYPE_10K)
+            $configurationProvider->getConfigurationByType(TypeInterface::TYPE_10K)
+        );
+    }
+
+    /**
+     * Test if this method return a Configuration object
+     */
+    public function testGetConfiguration()
+    {
+        $this->configurationManagerMock
+            ->expects($this->any())
+            ->method('findConfiguration')
+            ->willReturn($this->configurationMock);
+
+        $configurationProvider = new ConfigurationProvider($this->configurationManagerMock);
+
+        $this->assertInstanceOf(
+            Configuration::class,
+            $configurationProvider->getConfiguration(TypeInterface::TYPE_10K, 8, 3)
+        );
+    }
+
+    /**
+     * Test if this method return a Configuration object
+     *
+     * @expectedException \Cp\Exception\ConfigurationNotFoundException
+     */
+    public function testGetConfigurationNotFound()
+    {
+        $this->configurationManagerMock
+            ->expects($this->any())
+            ->method('findConfiguration')
+            ->willReturn(null);
+
+        $configurationProvider = new ConfigurationProvider($this->configurationManagerMock);
+
+        $this->assertInstanceOf(
+            Configuration::class,
+            $configurationProvider->getConfiguration(TypeInterface::TYPE_10K, 999, 3)
         );
     }
 }

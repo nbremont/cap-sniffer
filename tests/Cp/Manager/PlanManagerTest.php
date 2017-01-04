@@ -4,7 +4,7 @@ namespace Tests\Cp\Manager;
 
 use Cp\DomainObject\Plan;
 use Cp\DomainObject\TypeInterface;
-use Cp\Exception\ConfigurationException;
+use Cp\Exception\ConfigurationNotFoundException;
 use Cp\Manager\PlanManager;
 use Cp\Parser\PlanParser;
 use Cp\Transformer\UrlTransformer;
@@ -92,7 +92,7 @@ class PlanManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * Test if Configuration exception is throw
      *
-     * @expectedException \Cp\Exception\ConfigurationException
+     * @expectedException \Cp\Exception\ConfigurationNotFoundException
      */
     public function testThrowConfigurationException()
     {
@@ -100,7 +100,7 @@ class PlanManagerTest extends \PHPUnit_Framework_TestCase
             ->planParserMock
             ->expects($this->once())
             ->method('parseToJson')
-            ->willThrowException(new ConfigurationException())
+            ->willThrowException(new ConfigurationNotFoundException())
         ;
 
         $planManager = new PlanManager(

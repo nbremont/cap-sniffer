@@ -9,6 +9,7 @@ use Cp\DomainObject\Configuration;
 use Cp\DomainObject\Plan;
 use Cp\DomainObject\TypeInterface;
 use Cp\Manager\ConfigurationManager;
+use Cp\Provider\ConfigurationProvider;
 use Cp\Provider\PlanProvider;
 use Cp\Provider\TypeProvider;
 
@@ -40,7 +41,7 @@ class CapSnifferTest extends \PHPUnit_Framework_TestCase
     /**
      * @var PHPUnit_Framework_MockObject_MockBuilder
      */
-    protected $configurationManagerMock;
+    protected $configurationProviderMock;
 
     /**
      * {@inheritdoc}
@@ -63,8 +64,8 @@ class CapSnifferTest extends \PHPUnit_Framework_TestCase
             ->getMockBuilder(Slugify::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->configurationManagerMock = $this
-            ->getMockBuilder(ConfigurationManager::class)
+        $this->configurationProviderMock = $this
+            ->getMockBuilder(ConfigurationProvider::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -74,15 +75,15 @@ class CapSnifferTest extends \PHPUnit_Framework_TestCase
             ->willReturn('plans-entrainement-10-km-en-50-55-minutes')
         ;
 
-        $this->configurationManagerMock
-            ->expects($this->any())
-            ->method('createConfiguration')
-            ->willReturn($configurationMock);
-
         $this->planProviderMock
             ->expects($this->any())
             ->method('getPlanByConfiguration')
             ->willReturn($planMock);
+
+        $this->configurationProviderMock
+            ->expects($this->any())
+            ->method('getConfiguration')
+            ->willReturn($configurationMock);
 
         $this->calendarBuilderMock
             ->expects($this->any())
@@ -96,11 +97,11 @@ class CapSnifferTest extends \PHPUnit_Framework_TestCase
     public function testGenerateCalendar()
     {
         $capSniffer = new CapSniffer(
+            $this->calendarBuilderMock,
             $this->typeProviderMock,
             $this->planProviderMock,
-            $this->calendarBuilderMock,
-            $this->slugMock,
-            $this->configurationManagerMock
+            $this->configurationProviderMock,
+            $this->slugMock
         );
 
         $actual = $capSniffer->generateCalendar(TypeInterface::TYPE_10K, 8, 3);
@@ -114,11 +115,11 @@ class CapSnifferTest extends \PHPUnit_Framework_TestCase
     public function testWriteCalendar()
     {
         $capSniffer = new CapSniffer(
+            $this->calendarBuilderMock,
             $this->typeProviderMock,
             $this->planProviderMock,
-            $this->calendarBuilderMock,
-            $this->slugMock,
-            $this->configurationManagerMock
+            $this->configurationProviderMock,
+            $this->slugMock
         );
 
         $capSniffer->writeCalendar(TypeInterface::TYPE_10K, 8, 3);
@@ -133,11 +134,11 @@ class CapSnifferTest extends \PHPUnit_Framework_TestCase
     public function testGetFileName()
     {
         $capSniffer = new CapSniffer(
+            $this->calendarBuilderMock,
             $this->typeProviderMock,
             $this->planProviderMock,
-            $this->calendarBuilderMock,
-            $this->slugMock,
-            $this->configurationManagerMock
+            $this->configurationProviderMock,
+            $this->slugMock
         );
 
         $this->assertEquals(

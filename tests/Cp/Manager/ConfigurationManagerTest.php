@@ -115,4 +115,60 @@ class ConfigurationManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(8, $configuration->getNumberOfWeek());
         $this->assertEquals(3, $configuration->getNumberOfSeance());
     }
+
+    /**
+     * Test if configuration was found
+     */
+    public function testFindConfiguration()
+    {
+        $configurationManager = new ConfigurationManager(
+            $this->typeProviderMock,
+            $this->configurationParserMock,
+            $this->memcacheMock,
+            $this->urlTransformerMock
+        );
+
+        $this->memcacheMock
+            ->expects($this->any())
+            ->method('fetch')
+            ->willReturn(false);
+
+        $this->configurationParserMock
+            ->expects($this->any())
+            ->method('parseToJson')
+            ->willReturn('[
+                { "type": "'.TypeInterface::TYPE_10K.'", "week": "8", "seance": "3" }
+            ]');
+
+        $actual = $configurationManager->findConfiguration(TypeInterface::TYPE_10K, 8, 3);
+
+        $this->assertInstanceOf(Configuration::class, $actual);
+    }
+
+    /**
+     * Test if configuration was not found
+     */
+    public function testFindConfigurationNotFound()
+    {
+        $configurationManager = new ConfigurationManager(
+            $this->typeProviderMock,
+            $this->configurationParserMock,
+            $this->memcacheMock,
+            $this->urlTransformerMock
+        );
+
+        $this->memcacheMock
+            ->expects($this->any())
+            ->method('fetch')
+            ->willReturn(false);
+
+        $this->configurationParserMock
+            ->expects($this->any())
+            ->method('parseToJson')
+            ->willReturn('[]');
+
+        $actual = $configurationManager->findConfiguration(TypeInterface::TYPE_10K, 8, 3);
+
+        $this->assertEquals(null, $actual);
+    }
 }

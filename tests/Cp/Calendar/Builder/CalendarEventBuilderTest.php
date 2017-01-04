@@ -19,7 +19,7 @@ class CalendarEventBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $trainingMock = $this->getMockBuilder(Training::class)->disableOriginalConstructor()->getMock();
         $trainingMock
-            ->expects($this->exactly(2))
+            ->expects($this->any())
             ->method('getContent')
             ->willReturn('Footing 45 mins')
         ;

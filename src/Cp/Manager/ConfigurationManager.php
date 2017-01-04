@@ -57,20 +57,22 @@ class ConfigurationManager
 
     /**
      * @param string $typeName
-     * @param int    $week
-     * @param int    $seance
+     * @param string $week
+     * @param string $seance
      *
-     * @return Configuration
+     * @return Configuration|null
      */
-    public function createConfiguration($typeName, $week, $seance)
+    public function findConfiguration($typeName, $week, $seance)
     {
-        $type = $this->typeProvider->getTypeByName($typeName);
-        $configuration = new Configuration();
-        $configuration->setType($type);
-        $configuration->setNumberOfWeek($week);
-        $configuration->setNumberOfSeance($seance);
+        $configurationSearch = $this->createConfiguration($typeName, $week, $seance);
 
-        return $configuration;
+        foreach ($this->findConfigurationsByType($typeName) as $configuration) {
+            if ($configurationSearch == $configuration) {
+                return $configurationSearch;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -106,5 +108,23 @@ class ConfigurationManager
         }
 
         return $configurationList;
+    }
+
+    /**
+     * @param string $typeName
+     * @param int    $week
+     * @param int    $seance
+     *
+     * @return Configuration
+     */
+    public function createConfiguration($typeName, $week, $seance)
+    {
+        $type = $this->typeProvider->getTypeByName($typeName);
+        $configuration = new Configuration();
+        $configuration->setType($type);
+        $configuration->setNumberOfWeek($week);
+        $configuration->setNumberOfSeance($seance);
+
+        return $configuration;
     }
 }
