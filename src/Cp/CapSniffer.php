@@ -64,40 +64,40 @@ class CapSniffer
     }
 
     /**
-     * @param string $typeName
+     * @param string $type
      * @param string $week
      * @param string $seance
      *
      * @return string
      */
-    public function generateCalendar($typeName, $week, $seance)
+    public function generateCalendar($type, $week, $seance)
     {
-        return $this->calendarBuilder->exportCalendar($this->getPlan($typeName, $week, $seance));
+        return $this->calendarBuilder->exportCalendar($this->getPlan($type, $week, $seance));
     }
 
     /**
-     * @param string $typeName
+     * @param string $type
      * @param string $week
      * @param string $seance
      */
-    public function writeCalendar($typeName, $week, $seance)
+    public function writeCalendar($type, $week, $seance)
     {
         file_put_contents(
-            __DIR__.'/../../'.$this->getFileName($typeName, $week, $seance),
-            $this->generateCalendar($typeName, $week, $seance)
+            __DIR__.'/../../'.$this->getFileName($type, $week, $seance),
+            $this->generateCalendar($type, $week, $seance)
         );
     }
 
     /**
-     * @param string $typeName
+     * @param string $type
      * @param string $week
      * @param string $seance
      *
      * @return Plan
      */
-    public function getPlan($typeName, $week, $seance)
+    public function getPlan($type, $week, $seance)
     {
-        $configuration = $this->configProvider->getConfiguration($typeName, $week, $seance);
+        $configuration = $this->configProvider->getConfiguration($type, $week, $seance);
         $plan = $this->planProvider->getPlanByConfiguration($configuration);
         $plan->setConfiguration($configuration);
 
@@ -105,14 +105,14 @@ class CapSniffer
     }
 
     /**
-     * @param string $typeName
+     * @param string $type
      * @param string $week
      * @param string $seance
      *
      * @return string
      */
-    public function getFileName($typeName, $week, $seance)
+    public function getFileName($type, $week, $seance)
     {
-        return $this->slug->slugify($this->getPlan($typeName, $week, $seance)->getName()).'.ics';
+        return $this->slug->slugify($this->getPlan($type, $week, $seance)->getName()).'.ics';
     }
 }

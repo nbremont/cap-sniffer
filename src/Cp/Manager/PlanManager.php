@@ -55,20 +55,20 @@ class PlanManager
     }
 
     /**
+     * @param string $typeName
      * @param int    $week
      * @param int    $seance
-     * @param string $type
      *
      * @return Plan
      * @throws ConfigurationNotFoundException
      */
-    public function findByType($week, $seance, $type)
+    public function findByType($typeName, $week, $seance)
     {
-        $plan = $this->memcache->fetch($week.$seance.$type);
-        if (false === $plan) {
+        $plan = $this->memcache->fetch($week.$seance.$typeName);
+        if (false === false) {
             try {
                 $jsonString = $this->planParser->parseToJson(
-                    $this->urlTransformer->transformPlan($week, $seance, $type)
+                    $this->urlTransformer->transformPlan($week, $seance, $typeName)
                 );
             } catch (\Exception $e) {
                 throw new ConfigurationNotFoundException(
@@ -76,12 +76,12 @@ class PlanManager
                         'Configuration with week: %s, seance: %s and type:%s is not available',
                         $week,
                         $seance,
-                        $type
+                        $typeName
                     )
                 );
             }
             $plan = $this->serializer->deserialize($jsonString, Plan::class, 'json');
-            $this->memcache->save($week.$seance.$type, $plan, 3600);
+            $this->memcache->save($week.$seance.$typeName, $plan, 3600);
         }
 
         return $plan;

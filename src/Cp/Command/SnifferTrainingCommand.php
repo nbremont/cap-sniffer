@@ -66,14 +66,15 @@ class SnifferTrainingCommand extends Command
         $question->setErrorMessage('Plan %s is not valid.');
 
         $helper = $this->getHelper('question');
-        $typeName = $helper->ask($input, $output, $question);
+        $type = $helper->ask($input, $output, $question);
+        $typeKey = $this->typeProvider->getTypeByName($type);
 
-        $this->capSniffer->writeCalendar($typeName, $week, $seance);
+        $this->capSniffer->writeCalendar($typeKey, $week, $seance);
 
         $output
             ->writeln(sprintf(
                 'Calendar generate successfully in <info>%s</info>',
-                $this->capSniffer->getFileName($typeName, $week, $seance)
+                $this->capSniffer->getFileName($type, $week, $seance)
             ));
     }
 }

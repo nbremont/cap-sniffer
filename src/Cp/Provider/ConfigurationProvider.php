@@ -27,33 +27,33 @@ class ConfigurationProvider
     }
 
     /**
-     * @param string $typeName
+     * @param string $type
      *
      * @return array
      */
-    public function getConfigurationByType($typeName)
+    public function getConfigurationByType($type)
     {
-        return $this->configurationManager->findConfigurationsByType($typeName);
+        return $this->configurationManager->findConfigurationsByType($type);
     }
 
     /**
-     * @param string $typeName
+     * @param string $type
      * @param string $week
      * @param string $seance
      *
      * @return Configuration
      * @throws ConfigurationNotFoundException
      */
-    public function getConfiguration($typeName, $week, $seance)
+    public function getConfiguration($type, $week, $seance)
     {
-        $configuration = $this->configurationManager->findConfiguration($typeName, $week, $seance);
+        $configuration = $this->configurationManager->findConfiguration($type, $week, $seance);
         if (null === $configuration) {
             throw new ConfigurationNotFoundException(
                 sprintf(
                     'Configuration with week: %s, seance: %s and type:%s is not available',
                     $week,
                     $seance,
-                    $typeName
+                    $type
                 )
             );
         }

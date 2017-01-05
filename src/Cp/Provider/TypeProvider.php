@@ -30,7 +30,7 @@ class TypeProvider
     {
         $key = array_search($type, $this->getTypes());
 
-        return false !== $key ? $this->getTypes()[$key] : null;
+        return false !== $key ? $key : null;
     }
 
     /**

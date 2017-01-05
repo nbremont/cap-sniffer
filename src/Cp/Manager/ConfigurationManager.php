@@ -56,17 +56,17 @@ class ConfigurationManager
     }
 
     /**
-     * @param string $typeName
+     * @param string $type
      * @param string $week
      * @param string $seance
      *
      * @return Configuration|null
      */
-    public function findConfiguration($typeName, $week, $seance)
+    public function findConfiguration($type, $week, $seance)
     {
-        $configurationSearch = $this->createConfiguration($typeName, $week, $seance);
+        $configurationSearch = $this->createConfiguration($type, $week, $seance);
 
-        foreach ($this->findConfigurationsByType($typeName) as $configuration) {
+        foreach ($this->findConfigurationsByType($type) as $configuration) {
             if ($configurationSearch == $configuration) {
                 return $configurationSearch;
             }
@@ -76,15 +76,17 @@ class ConfigurationManager
     }
 
     /**
-     * @param string $typeName
+     * @param string $type
      *
      * @return array
      */
-    public function findConfigurationsByType($typeName)
+    public function findConfigurationsByType($type)
     {
-        $configurationForType = $this->memcache->fetch(self::CACHE_KEY.$typeName);
+        $configurationForType = $this->memcache->fetch(self::CACHE_KEY.$type);
 
         if (false === $configurationForType) {
+            $typeName = $this->typeProvider->getTypeByKey($type);
+            var_dump($type); die;
             $configurationForType = json_decode(
                 $this->configurationParser->parseToJson(
                     $this->urlTransformer->transformType($typeName)
@@ -94,14 +96,14 @@ class ConfigurationManager
 
             $this
                 ->memcache
-                ->save(self::CACHE_KEY.$typeName, $configurationForType, 3600);
+                ->save(self::CACHE_KEY.$type, $configurationForType, 3600);
         }
 
         $configurationList = [];
         foreach ($configurationForType as $conf) {
             $configurationList[] = $this
                 ->createConfiguration(
-                    $typeName,
+                    $type,
                     $conf['week'],
                     $conf['seance']
                 );
@@ -111,15 +113,14 @@ class ConfigurationManager
     }
 
     /**
-     * @param string $typeName
+     * @param string $type
      * @param int    $week
      * @param int    $seance
      *
      * @return Configuration
      */
-    public function createConfiguration($typeName, $week, $seance)
+    public function createConfiguration($type, $week, $seance)
     {
-        $type = $this->typeProvider->getTypeByName($typeName);
         $configuration = new Configuration();
         $configuration->setType($type);
         $configuration->setNumberOfWeek($week);

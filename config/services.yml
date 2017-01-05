@@ -49,7 +49,7 @@ services:
     class: Cp\Provider\TypeProvider
   cp.provider.plan:
     class: Cp\Provider\PlanProvider
-    arguments: ["@cp.manager.plan"]
+    arguments: ["@cp.manager.plan", "@cp.provider.type"]
   cp.provider.configuration:
     class: Cp\Provider\ConfigurationProvider
     arguments: ["@cp.manager.configuration"]

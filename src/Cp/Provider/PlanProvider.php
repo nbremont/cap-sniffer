@@ -17,13 +17,20 @@ class PlanProvider
     private $planManager;
 
     /**
+     * @var TypeProvider
+     */
+    private $typeProvider;
+
+    /**
      * PlanProvider constructor.
      *
-     * @param PlanManager $planManager
+     * @param PlanManager  $planManager
+     * @param TypeProvider $typeProvider
      */
-    public function __construct(PlanManager $planManager)
+    public function __construct(PlanManager $planManager, TypeProvider $typeProvider)
     {
         $this->planManager = $planManager;
+        $this->typeProvider = $typeProvider;
     }
 
     /**
@@ -33,10 +40,12 @@ class PlanProvider
      */
     public function getPlanByConfiguration(Configuration $configuration)
     {
+        $typeName = $this->typeProvider->getTypeByKey($configuration->getType());
+
         return $this->planManager->findByType(
+            $typeName,
             $configuration->getNumberOfWeek(),
-            $configuration->getNumberOfSeance(),
-            $configuration->getType()
+            $configuration->getNumberOfSeance()
         );
     }
 }
