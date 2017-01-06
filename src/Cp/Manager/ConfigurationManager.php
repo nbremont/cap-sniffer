@@ -65,7 +65,6 @@ class ConfigurationManager
     public function findConfiguration($type, $week, $seance)
     {
         $configurationSearch = $this->createConfiguration($type, $week, $seance);
-
         foreach ($this->findConfigurationsByType($type) as $configuration) {
             if ($configurationSearch == $configuration) {
                 return $configurationSearch;
@@ -86,7 +85,6 @@ class ConfigurationManager
 
         if (false === $configurationForType) {
             $typeName = $this->typeProvider->getTypeByKey($type);
-            var_dump($type); die;
             $configurationForType = json_decode(
                 $this->configurationParser->parseToJson(
                     $this->urlTransformer->transformType($typeName)

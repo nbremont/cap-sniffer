@@ -97,7 +97,7 @@ class ConfigurationManagerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('parseToJson')
             ->willReturn('[
-                { "type": "'.TypeInterface::TYPE_10K.'", "week": "8", "seance": "3" }
+                { "type": "10", "week": "8", "seance": "3" }
             ]');
 
         $configurationManager = new ConfigurationManager(
@@ -107,7 +107,7 @@ class ConfigurationManagerTest extends \PHPUnit_Framework_TestCase
             $this->urlTransformerMock
         );
 
-        $configurationCollection = $configurationManager->findConfigurationsByType(TypeInterface::TYPE_10K);
+        $configurationCollection = $configurationManager->findConfigurationsByType(10);
         $configuration = $configurationCollection[0];
 
         $this->assertInstanceOf(Configuration::class, $configurationCollection[0]);

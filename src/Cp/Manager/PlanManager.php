@@ -65,7 +65,7 @@ class PlanManager
     public function findByType($typeName, $week, $seance)
     {
         $plan = $this->memcache->fetch($week.$seance.$typeName);
-        if (false === false) {
+        if (false === $plan) {
             try {
                 $jsonString = $this->planParser->parseToJson(
                     $this->urlTransformer->transformPlan($week, $seance, $typeName)

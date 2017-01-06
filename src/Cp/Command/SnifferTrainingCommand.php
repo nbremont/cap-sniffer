@@ -74,7 +74,7 @@ class SnifferTrainingCommand extends Command
         $output
             ->writeln(sprintf(
                 'Calendar generate successfully in <info>%s</info>',
-                $this->capSniffer->getFileName($type, $week, $seance)
+                $this->capSniffer->getFileName($typeKey, $week, $seance)
             ));
     }
 }
