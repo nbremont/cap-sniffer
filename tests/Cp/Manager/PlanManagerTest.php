@@ -3,7 +3,6 @@
 namespace Tests\Cp\Manager;
 
 use Cp\DomainObject\Plan;
-use Cp\DomainObject\TypeInterface;
 use Cp\Exception\ConfigurationNotFoundException;
 use Cp\Manager\PlanManager;
 use Cp\Parser\PlanParser;
@@ -84,7 +83,7 @@ class PlanManagerTest extends \PHPUnit_Framework_TestCase
             $this->memcachedCacheMock
         );
 
-        $plan = $planManager->findByType(8, 3, TypeInterface::TYPE_10K);
+        $plan = $planManager->findByType(10, 8, 3);
 
         $this->assertInstanceOf(Plan::class, $plan);
     }
@@ -110,6 +109,6 @@ class PlanManagerTest extends \PHPUnit_Framework_TestCase
             $this->memcachedCacheMock
         );
 
-        $planManager->findByType(8, 3, TypeInterface::TYPE_10K);
+        $planManager->findByType(10, 8, 3);
     }
 }

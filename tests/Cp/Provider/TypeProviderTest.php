@@ -33,11 +33,21 @@ class TypeProviderTest extends \PHPUnit_Framework_TestCase
     {
         $typeProvider = new TypeProvider();
 
-        $this->assertEquals('plan-entrainement-10km', $typeProvider->getTypeByName('plan-entrainement-10km'));
-        $this->assertEquals('plan-entrainement-semi-marathon', $typeProvider->getTypeByName('plan-entrainement-semi-marathon'));
-        $this->assertEquals('plan-entrainement-marathon', $typeProvider->getTypeByName('plan-entrainement-marathon'));
+        $this->assertEquals('10', $typeProvider->getTypeByName('plan-entrainement-10km'));
+        $this->assertEquals('21', $typeProvider->getTypeByName('plan-entrainement-semi-marathon'));
+        $this->assertEquals('42', $typeProvider->getTypeByName('plan-entrainement-marathon'));
+    }
 
-        $this->assertEquals(null, $typeProvider->getTypeByName('fake'));
+    /**
+     * Test return type available by name
+     *
+     * @expectedException Exception
+     */
+    public function testGetTypeByNameNotFound()
+    {
+        $typeProvider = new TypeProvider();
+
+        $this->assertEquals('10', $typeProvider->getTypeByName('plan-fake-and-wrong'));
     }
 
     /**
@@ -48,6 +58,17 @@ class TypeProviderTest extends \PHPUnit_Framework_TestCase
         $typeProvider = new TypeProvider();
 
         $this->assertEquals(TypeInterface::TYPE_10K, $typeProvider->getTypeByKey(10));
-        $this->assertEquals(null, $typeProvider->getTypeByKey(99));
+    }
+
+    /**
+     * Test return type available by key
+     *
+     * @expectedException Exception
+     */
+    public function testGetTypeByKeyNotFound()
+    {
+        $typeProvider = new TypeProvider();
+
+        $this->assertEquals(TypeInterface::TYPE_10K, $typeProvider->getTypeByKey(99));
     }
 }
