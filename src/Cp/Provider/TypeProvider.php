@@ -24,7 +24,7 @@ class TypeProvider
     /**
      * @param string $type
      *
-     * @return null|string
+     * @return string
      * @throws \Exception
      */
     public function getTypeByName($type)
@@ -45,7 +45,7 @@ class TypeProvider
     /**
      * @param string $key
      *
-     * @return null|string
+     * @return string
      * @throws \Exception
      */
     public function getTypeByKey($key)
